@@ -2,7 +2,6 @@ package com.example.rappidemo.source.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.rappidemo.model.Pelicula
 
 /**
  * Created by jledesma on 8/23/19.
@@ -11,17 +10,17 @@ import com.example.rappidemo.model.Pelicula
 interface PeliculaDao {
 
     @Insert
-    fun insert(pelicula: Pelicula)
+    fun insert(pelicula: PeliculaEntity)
 
     @Update
-    fun update(pelicula: Pelicula)
+    fun update(pelicula: PeliculaEntity)
 
     @Delete
-    fun delete(pelicula: Pelicula)
+    fun delete(pelicula: PeliculaEntity)
 
-    @Query("DELETE FROM tabla_notas")
+    @Query("DELETE FROM TABLA_PELICULAS")
     fun deleteAll()
 
-    @Query("SELECT * FROM tabla_notas order by id desc")
-    fun listarNotas(): LiveData<List<Pelicula>>
+    @Query("SELECT * FROM TABLA_PELICULAS order by id desc")
+    fun listarPeliculas(): LiveData<List<PeliculaEntity>>
 }

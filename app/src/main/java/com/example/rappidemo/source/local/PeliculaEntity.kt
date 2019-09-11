@@ -7,10 +7,10 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 /**
- * Created by jledesma on 8/23/19.
+ * Created by fernandopretell.
  */
 @Entity(tableName = "tabla_peliculas")
-data class PeliculasTableDB(
+data class PeliculaEntity(
 
         @PrimaryKey(autoGenerate = true)
         @NonNull
