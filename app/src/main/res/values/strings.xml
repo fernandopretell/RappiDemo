@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RappiDemo</string>
+    <string name="end_default_description">Tenemos\nmás opciones\npara ti</string>
+    <string name="end_default_button">Ver más</string>
 </resources>

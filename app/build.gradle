@@ -60,4 +60,7 @@ dependencies {
 
     //Libreria Gson
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+
+
 }

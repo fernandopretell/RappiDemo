@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:id="@+id/lnButton"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="android.widget.LinearLayout"
+    tools:layout_width="match_parent"
+    tools:layout_height="match_parent"
+    tools:minHeight="@dimen/btn_default_min_height"
+    tools:orientation="horizontal"
+    tools:gravity="center">
+
+    <ImageView
+        android:id="@+id/iconButtonLeft"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@null"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/btn_padding_icon_container"
+        android:layout_marginEnd="@dimen/btn_padding_icon_text"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/textButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/btn_name"
+        android:singleLine="false" />
+
+    <ImageView
+        android:id="@+id/iconButtonRight"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@null"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/btn_padding_icon_text"
+        android:layout_marginEnd="@dimen/btn_padding_icon_container"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter" />
+
+</merge>

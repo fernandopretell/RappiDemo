@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':componentes'
 rootProject.name='RappiDemo'

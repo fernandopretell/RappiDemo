@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Carousel">
+        <attr name="carousel_banner" format="boolean"/>
+        <attr name="carousel_banner_placeholder" format="reference"/>
+        <attr name="carousel_banner_image" format="reference"/>
+        <attr name="carousel_items" format="integer"/>
+        <attr name="carousel_decoration" format="dimension"/>
+        <attr name="carousel_hide" format="dimension"/>
+
+        <attr name="carousel_textLabel" format="string"/>
+        <attr name="carousel_size_textLabel" format="dimension"/>
+        <attr name="carousel_height_recycler" format="dimension"/>
+    </declare-styleable>
+
+</resources>

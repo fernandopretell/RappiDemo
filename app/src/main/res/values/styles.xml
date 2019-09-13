@@ -8,4 +8,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="End"/>
+
+    <style name="End.ViewSize">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="End.Description" parent="End.ViewSize">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="End.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/end_default_button_height</item>
+        <item name="android:layout_marginTop">36dp</item>
+        <item name="android:borderlessButtonStyle">true</item>
+    </style>
+
 </resources>

@@ -34,8 +34,8 @@ class PeliculasRepository(application: Application) {
     @SuppressLint("StaticFieldLeak")
     inner class DeleteNotaAsyncTask(private val notaDao: PeliculaDao?) : AsyncTask<PeliculaEntity,Void,Void>(){
 
-        override fun doInBackground(vararg notas: PeliculaEntity): Void? {
-            notaDao?.delete(notas[0])
+        override fun doInBackground(vararg pelicula: PeliculaEntity): Void? {
+            notaDao?.delete(pelicula[0])
             return  null
         }
 
@@ -44,8 +44,8 @@ class PeliculasRepository(application: Application) {
     @SuppressLint("StaticFieldLeak")
     inner class InsertNotaAsyncTask(private val notaDao: PeliculaDao?) : AsyncTask<PeliculaEntity,Void,Void>(){
 
-        override fun doInBackground(vararg notas: PeliculaEntity): Void? {
-            notaDao?.insert(notas[0])
+        override fun doInBackground(vararg pelicula: PeliculaEntity): Void? {
+            notaDao?.insert(pelicula[0])
             return  null
         }
 

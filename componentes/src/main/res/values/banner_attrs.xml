@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Banner">
+        <attr name="banner_card_corner" format="dimension"/>
+        <attr name="banner_placeholder" format="reference"/>
+        <attr name="banner_text_label" format="string"/>
+    </declare-styleable>
+
+</resources>

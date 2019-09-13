@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Carousel"/>
+
+    <style name="Carousel.ProgressBar">
+        <item name="colorAccent">#FA5F4D</item>
+    </style>
+
+</resources>

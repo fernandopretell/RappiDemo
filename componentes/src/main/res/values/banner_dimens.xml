@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="banner_default_width">152dp</dimen>
+    <dimen name="banner_default_height">348dp</dimen>
+    <dimen name="banner_default_radius">4dp</dimen>
+    <dimen name="banner_default_margin">2dp</dimen>
+
+</resources>

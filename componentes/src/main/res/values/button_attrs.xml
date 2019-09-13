@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Button">
+
+        <attr name="btn_icon_left" format="reference"/>
+        <attr name="btn_icon_right" format="reference"/>
+        <attr name="btn_text" format="string"/>
+        <attr name="btn_text_color" format="color"/>
+        <attr name="btn_text_size" format="dimension" />
+        <attr name="btn_text_bold" format="boolean" />
+        <attr name="btn_color" format="color"/>
+        <attr name="btn_ripple_color" format="color"/>
+        <attr name="btn_border_radius" format="dimension"/>
+        <attr name="btn_border_size" format="dimension"/>
+        <attr name="btn_border_color" format="color"/>
+        <attr name="btn_outline" format="boolean"/>
+        <attr name="btn_disable" format="boolean"/>
+        <attr name="btn_icon_size" format="dimension"/>
+        <attr name="btn_text_underline" format="boolean" />
+        <attr name="btn_min_height" format="dimension" />
+
+
+    </declare-styleable>
+
+</resources>
