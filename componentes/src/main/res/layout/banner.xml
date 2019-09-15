@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bannerContainer"
     android:layout_width="@dimen/banner_default_width"
     android:layout_height="@dimen/banner_default_height"
-    android:layout_margin="@dimen/banner_default_margin"
-    app:cardCornerRadius="@dimen/banner_default_radius"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginTop="@dimen/card_default_margin"
+    android:layout_marginEnd="@dimen/card_default_margin"
+    android:layout_marginStart="@dimen/card_default_margin">
 
-    <ImageView
-        style="@style/Banner.Image"
-        android:id="@+id/bannerImage"/>
-    <ImageView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black"
-        android:alpha="0.45"/>
-    <TextView
-        android:id="@+id/tvTituloBanner"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:fontFamily="@font/lato_black_italic"
-        android:text="@string/banner_label"
-        android:textSize="35sp"/>
+        android:layout_height="match_parent">
+        <ImageView
+            style="@style/Banner.Image"
+            android:id="@+id/bannerImage"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:alpha="0.80"
+            android:contentDescription="sombreado"/>
+        <TextView
+            android:id="@+id/tvTituloBanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lato_black_italic"
+            android:text="@string/banner_label"
+            android:textSize="28sp"/>
+
+    </FrameLayout>
+
+
 
 </androidx.cardview.widget.CardView>

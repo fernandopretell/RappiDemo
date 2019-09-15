@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.fernandopretell.componentes.carousel.Banner
+<com.fernandopretell.componentes.carousel.Card_pelicula
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/carouselBanner"
+    android:id="@+id/carouselCard"
     android:layout_width="wrap_content"
     android:layout_height="match_parent" />

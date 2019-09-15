@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_default_width">150dp</dimen>
+    <dimen name="card_default_height">250dp</dimen>
+    <dimen name="card_default_radius">4dp</dimen>
+    <dimen name="card_default_margin">4dp</dimen>
+</resources>

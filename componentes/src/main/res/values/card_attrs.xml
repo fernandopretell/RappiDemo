@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Card_pelicula">
+        <attr name="card_card_corner" format="dimension"/>
+        <attr name="card_placeholder" format="reference"/>
+    </declare-styleable>
+</resources>

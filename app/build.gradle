@@ -23,6 +23,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    /*repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }*/
+
+
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/2'] } }
 }
 
 dependencies {
@@ -30,14 +44,16 @@ dependencies {
     def lifecycle_version = "1.1.1"
     def room_version = "1.1.1"
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
 
     //Liberias Room:
     implementation "android.arch.persistence.room:runtime:$room_version"
@@ -46,21 +62,28 @@ dependencies {
     //Libreria Lifecycle
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //Libreria Logging-interceptor
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
 
     //Libreria okhttp3
-    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.1'
 
     //Libreria Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
 
     //Libreria Gson
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    implementation "com.github.bumptech.glide:glide:4.9.0"
 
 
+    api project(":componentes")
+
+    // implementation(name: 'core-lib', ext: 'aar')
 
 }
