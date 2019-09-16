@@ -77,7 +77,8 @@ class PeliculasRepository(application: Application) {
 
         webservice.obtenerDataRemota().enqueue(object : Callback<ResponseApi> {
             override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
-                Log.e("jledesma", t.message.toString())            }
+                Log.e("TAG", t.message.toString())
+            }
 
             override fun onResponse(call: Call<ResponseApi>, response: Response<ResponseApi>) {
                 when(response.code()){

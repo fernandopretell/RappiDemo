@@ -1,8 +1,11 @@
 package com.fernandopretell.rappidemo.presentation
 
 import android.content.Context
+import android.content.IntentFilter
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -16,15 +19,22 @@ import com.fernandopretell.rappidemo.R
 import com.fernandopretell.rappidemo.model.ResponseFinal
 import com.fernandopretell.rappidemo.source.local.ResponseEntity
 import com.fernandopretell.rappidemo.source.remote.ResponseApi
+import com.fernandopretell.rappidemo.util.ConnectivityReceiver
 import com.fernandopretell.rappidemo.util.Constants
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.jledesma.dia2.viewmodel.PeliculaViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main_scrolling.*
+import android.widget.TextView
+import android.view.View
+import android.widget.ImageView
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiverListener {
 
     private var notaViewModel: PeliculaViewModel? = null
+    private var snackBar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,16 +42,14 @@ class MainActivity : AppCompatActivity() {
 
         notaViewModel = ViewModelProviders.of(this).get(PeliculaViewModel::class.java)
 
+
+        registerReceiver(ConnectivityReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+
         if(isNetworkVConnected(this)){
              notaViewModel!!.listarPeliculasRemoto().observe(this, Observer<ResponseApi> { response ->
                 val dataApi = response
                  dataApi?.let { transformResponseApiToFinal(it) }?.let { actualizarUI(it) }
             })
-
-
-
-        }else{
-            Toast.makeText(this,"mostrando data local",Toast.LENGTH_SHORT).show()
         }
 
         notaViewModel!!.listarPeliculas()?.observe(this, Observer<ResponseEntity> { response ->
@@ -78,7 +86,6 @@ class MainActivity : AppCompatActivity() {
         tvTitulo.text = response.name
         tvDescripcion.text = response.description
 
-
         val requestOptions = RequestOptions()
             //.placeholder(placeholder)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -87,7 +94,6 @@ class MainActivity : AppCompatActivity() {
             .load(url)
             .apply(requestOptions)
             .into(ivHeader)
-
     }
 
     fun transformResponseEntityToFinal(data:ResponseEntity):ResponseFinal{
@@ -122,6 +128,43 @@ class MainActivity : AppCompatActivity() {
         }
 
         return listCard
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        showNetworkMessage(isConnected)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ConnectivityReceiver.connectivityReceiverListener = this
+    }
+    private fun showNetworkMessage(isConnected: Boolean) {
+        if (!isConnected) {
+            snackBar = Snackbar.make(findViewById(R.id.nsContainer), "", Snackbar.LENGTH_LONG)
+            /*snackBar.setActionTextColor(Color.BLUE)
+
+            val layout = (Snackbar.SnackbarLayout)snackBar.getView as Snackbar.SnackbarLayout
+            val textView =layout.findViewById(android.support.design.R.id.snackbar_text) as TextView
+            textView.visibility = View.INVISIBLE
+
+            val snackView = LayoutInflater.inflate(R.layout., null)
+            val imageView = snackView.findViewById(R.id.image) as ImageView
+            imageView.setImageBitmap(image)
+            val textViewTop = snackView.findViewById(R.id.text) as TextView
+            textViewTop.setText(text)
+            textViewTop.setTextColor(Color.WHITE)
+
+            layout.setPadding(0, 0, 0, 0)
+
+            layout.addView(snackView, 0)
+            snackbar.show()*/
+
+
+            snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
+            snackBar?.show()
+        } else {
+            snackBar?.dismiss()
+        }
     }
 
     fun isNetworkVConnected(context: Context):Boolean{

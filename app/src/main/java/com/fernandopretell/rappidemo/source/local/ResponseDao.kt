@@ -13,12 +13,6 @@ interface ResponseDao {
     @Insert(onConflict = REPLACE)
     fun insert(response: ResponseEntity)
 
-    /*@Update
-    fun update(pelicula: ResponseEntity)
-
-    @Delete
-    fun delete(pelicula: ResponseEntity)*/
-
     @Query("DELETE FROM TABLA_RESPONSE")
     fun deleteAll()
 

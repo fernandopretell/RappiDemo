@@ -22,11 +22,6 @@ class PeliculaViewModel(application: Application): AndroidViewModel(application)
         list_peliculas = peliculaRepository?.listar_peliculas()
     }
 
-    fun insert(response: ResponseEntity) {
-
-        peliculaRepository?.insert(response)
-    }
-
     fun listarPeliculas(): LiveData<ResponseEntity>? {
 
         return list_peliculas
