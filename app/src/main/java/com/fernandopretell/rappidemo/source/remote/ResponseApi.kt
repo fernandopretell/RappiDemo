@@ -1,6 +1,8 @@
-package com.fernandopretell.rappidemo.model
+package com.fernandopretell.rappidemo.source.remote
 
-data class ResponseApi(val id_: Int,
+import com.fernandopretell.rappidemo.model.Pelicula
+
+data class ResponseApi(val id: Int,
                        val page: Int,
                        //val iso_3166_1: String,
                        //val total_results: Int,

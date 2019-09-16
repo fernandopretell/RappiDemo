@@ -3,7 +3,7 @@ package com.jledesma.dia2.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.fernandopretell.rappidemo.model.ResponseApi
+import com.fernandopretell.rappidemo.source.remote.ResponseApi
 import com.fernandopretell.rappidemo.repository.PeliculasRepository
 import com.fernandopretell.rappidemo.source.local.ResponseEntity
 
@@ -13,7 +13,7 @@ import com.fernandopretell.rappidemo.source.local.ResponseEntity
 class PeliculaViewModel(application: Application): AndroidViewModel(application) {
 
     private var peliculaRepository: PeliculasRepository? = null
-    private var list_peliculas: LiveData<List<ResponseEntity>>? = null
+    private var list_peliculas: LiveData<ResponseEntity>? = null
 
 
     init {
@@ -27,7 +27,7 @@ class PeliculaViewModel(application: Application): AndroidViewModel(application)
         peliculaRepository?.insert(response)
     }
 
-    fun listarPeliculas(): LiveData<List<ResponseEntity>>? {
+    fun listarPeliculas(): LiveData<ResponseEntity>? {
 
         return list_peliculas
     }

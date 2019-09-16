@@ -6,8 +6,8 @@ import android.os.AsyncTask
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fernandopretell.rappidemo.model.ResponseApi
-import com.fernandopretell.rappidemo.source.local.PeliculaDao
+import com.fernandopretell.rappidemo.source.remote.ResponseApi
+import com.fernandopretell.rappidemo.source.local.ResponseDao
 import com.fernandopretell.rappidemo.source.local.ResponseEntity
 import com.fernandopretell.rappidemo.source.local.PeliculasDatabase
 import com.fernandopretell.rappidemo.source.remote.HelperWs
@@ -17,46 +17,46 @@ import retrofit2.Response
 
 class PeliculasRepository(application: Application) {
 
-    private var peliculaDAo: PeliculaDao? = null
-    var list_peliculas: LiveData<List<ResponseEntity>>? = null
+    private var responseDAo: ResponseDao? = null
+    var list_peliculas: LiveData<ResponseEntity>? = null
 
     //Ws
-    private var pelicula: MutableLiveData<ResponseApi>? = null
+    private var response: MutableLiveData<ResponseApi>? = null
     internal var webservice = HelperWs.getService()
 
     init {
         val database = PeliculasDatabase.getInstance(application)
-        peliculaDAo = database?.notaDao()
-        list_peliculas = peliculaDAo?.listarPeliculas()
+        responseDAo = database?.responseDao()
+        list_peliculas = responseDAo?.obtenerData()
     }
 
-    fun listar_peliculas(): LiveData<List<ResponseEntity>>?{
+    fun listar_peliculas(): LiveData<ResponseEntity>?{
         return list_peliculas
     }
 
     fun insert(response: ResponseEntity){
-        InsertNotaAsyncTask(peliculaDAo).execute(response)
+        InsertNotaAsyncTask(responseDAo).execute(response)
     }
 
-    fun delete(response: ResponseEntity){
-        DeletePeliculaAsyncTask(peliculaDAo).execute(response)
+    fun deleteAll(){
+        DeletePeliculasAsyncTask(responseDAo).execute()
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class DeletePeliculaAsyncTask(private val peliculaDao: PeliculaDao?) : AsyncTask<ResponseEntity,Void,Void>(){
+    inner class DeletePeliculasAsyncTask(private val responseDao: ResponseDao?) : AsyncTask<Void, Void, Void>(){
 
-        override fun doInBackground(vararg response: ResponseEntity): Void? {
-            peliculaDao?.delete(response[0])
+        override fun doInBackground(vararg aVoid: Void): Void? {
+            responseDao?.deleteAll()
             return  null
         }
 
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class InsertNotaAsyncTask(private val peliculaDao: PeliculaDao?) : AsyncTask<ResponseEntity,Void,Void>(){
+    inner class InsertNotaAsyncTask(private val responseDao: ResponseDao?) : AsyncTask<ResponseEntity,Void,Void>(){
 
         override fun doInBackground(vararg response: ResponseEntity): Void? {
-            peliculaDao?.insert(response[0])
+            responseDao?.insert(response[0])
             return  null
         }
 
@@ -65,24 +65,35 @@ class PeliculasRepository(application: Application) {
     //ws
     fun obtenerPeliculas(): LiveData<ResponseApi> {
 
-        if (pelicula == null) {
-            pelicula = MutableLiveData()
-            listarProductos()
+        if (response == null) {
+            response = MutableLiveData()
+            listarPeliculasRemoto()
         }
 
-        return pelicula as MutableLiveData<ResponseApi>
+        return response as MutableLiveData<ResponseApi>
     }
 
-    private fun listarProductos() {
+    private fun listarPeliculasRemoto() {
 
-        webservice.listarPeliculas().enqueue(object : Callback<ResponseApi> {
+        webservice.obtenerDataRemota().enqueue(object : Callback<ResponseApi> {
             override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
                 Log.e("jledesma", t.message.toString())            }
 
             override fun onResponse(call: Call<ResponseApi>, response: Response<ResponseApi>) {
-                pelicula?.value = response.body()
-                //Log.e("jledesma", response.body()?)
+                when(response.code()){
+
+                    200 -> {
+                        deleteAll()
+                        response.body()?.let { transformApiToEntity(it) }?.let { insert(it) }
+                    }
+                }
             }
         })
+    }
+
+    fun transformApiToEntity(response: ResponseApi):ResponseEntity{
+
+        return ResponseEntity(response.id,response.page,response.revenue,response.name,response.description,response.backdrop_path,response.results,response.average_rating,response.poster_path)
+
     }
 }

@@ -1,77 +1,66 @@
 package com.fernandopretell.rappidemo.source.local
 
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.fernandopretell.rappidemo.model.Pelicula
 
 /**
  * Created by fernandopretell.
  */
-@Entity(tableName = "tabla_peliculas")
+@Entity(tableName = "tabla_response")
 data class ResponseEntity(
 
-        @PrimaryKey(autoGenerate = true)
+    /*@PrimaryKey(autoGenerate = true)
         @NonNull
+        var _id: Int,*/
+    @PrimaryKey
+    @ColumnInfo(name = "id")
         var id: Int,
 
-        @ColumnInfo(name = "id_remote")
-        var id_remote: Int,
+    @ColumnInfo(name = "page")
+        var page: Int,
 
-        @ColumnInfo(name = "original_title")
-        var original_title: String,
+    @ColumnInfo(name = "revenue")
+        var revenue: String,
 
-        @ColumnInfo(name = "vote_count")
-        var vote_count: Int,
+    @ColumnInfo(name = "name")
+        var name: String,
 
-        @ColumnInfo(name = "popularity")
-        var popularity: Double,
+    @ColumnInfo(name = "description")
+        var description: String,
 
-        @ColumnInfo(name = "poster_path")
-        var poster_path: String,
-
-        @ColumnInfo(name = "backdrop_path")
+    @ColumnInfo(name = "backdrop_path")
         var backdrop_path: String,
 
-        @ColumnInfo(name = "video")
-        var video: Boolean,
+    @TypeConverters(ResultConverter::class)
+        @ColumnInfo(name = "results")
+        var results: List<Pelicula> = ArrayList(),
 
-        @ColumnInfo(name = "adult")
-        var adult: Boolean,
+    @ColumnInfo(name = "average_rating")
+        var average_rating: Double,
 
-        @ColumnInfo(name = "vote_average")
-        var vote_average: Double,
-
-        @ColumnInfo(name = "overview")
-        var overview: String,
-
-        @ColumnInfo(name = "release_date")
-        var release_date: String
+    @ColumnInfo(name = "poster_path")
+        var poster_path: String
 
 
 ){
-    @Ignore
+   /* @Ignore
     constructor(id_remote: Int,
-                original_title: String,
-                vote_count: Int,
-                popularity: Double,
-                poster_path: String,
+                page: Int,
+                revenue: String,
+                name: String,
+                description: String,
                 backdrop_path: String,
-                video: Boolean,
-                adult: Boolean,
-                vote_average: Double,
-                overview: String,
-                release_date: String):this(0,id_remote,
-        original_title,
-        vote_count,
-        popularity,
-        poster_path,
+                results: List<Pelicula>,
+                average_rating: Double,
+                poster_path: String):this(0,id_remote,
+        page,
+        revenue,
+        name,
+        description,
         backdrop_path,
-        video,
-        adult,
-        vote_average,
-        overview,
-        release_date)
+        results,
+        average_rating,
+        poster_path)*/
 }
 

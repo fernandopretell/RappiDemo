@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(entities = arrayOf(ResponseEntity::class), version = 1)
+@TypeConverters(ResultConverter::class)
 abstract class PeliculasDatabase : RoomDatabase(){
 
-    abstract fun notaDao():PeliculaDao
+    abstract fun responseDao():ResponseDao
 
     companion object{
 
@@ -42,16 +44,16 @@ abstract class PeliculasDatabase : RoomDatabase(){
 
     /*class PopulateDBAsyncTask(instance: PeliculasDatabase?) : AsyncTask<Void,Void,Void>(){
 
-        private val notaDao : PeliculaDao? = instance?.notaDao()
+        private val responseDao : ResponseDao? = instance?.responseDao()
 
         override fun doInBackground(vararg p0: Void?): Void? {
 
-            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            responseDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            responseDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            responseDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            responseDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            responseDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            responseDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
 
             return null
         }
