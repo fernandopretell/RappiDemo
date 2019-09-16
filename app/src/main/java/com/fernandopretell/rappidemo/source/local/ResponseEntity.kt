@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
  * Created by fernandopretell.
  */
 @Entity(tableName = "tabla_peliculas")
-data class PeliculaEntity(
+data class ResponseEntity(
 
         @PrimaryKey(autoGenerate = true)
         @NonNull

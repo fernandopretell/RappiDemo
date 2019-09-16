@@ -1,6 +1,6 @@
 package com.fernandopretell.rappidemo.model
 
-class Pelicula(val id_remote: Int,
+data class Pelicula(val id_remote: Int,
                val original_title: String,
                val vote_count: Int,
                val popularity: Double,

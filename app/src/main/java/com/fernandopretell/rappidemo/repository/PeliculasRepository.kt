@@ -6,23 +6,22 @@ import android.os.AsyncTask
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fernandopretell.rappidemo.model.Pelicula
+import com.fernandopretell.rappidemo.model.ResponseApi
 import com.fernandopretell.rappidemo.source.local.PeliculaDao
-import com.fernandopretell.rappidemo.source.local.PeliculaEntity
+import com.fernandopretell.rappidemo.source.local.ResponseEntity
 import com.fernandopretell.rappidemo.source.local.PeliculasDatabase
 import com.fernandopretell.rappidemo.source.remote.HelperWs
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
 
 class PeliculasRepository(application: Application) {
 
     private var peliculaDAo: PeliculaDao? = null
-    var list_peliculas: LiveData<List<PeliculaEntity>>? = null
+    var list_peliculas: LiveData<List<ResponseEntity>>? = null
 
     //Ws
-    private var productos: MutableLiveData<List<Pelicula>>? = null
+    private var pelicula: MutableLiveData<ResponseApi>? = null
     internal var webservice = HelperWs.getService()
 
     init {
@@ -31,59 +30,58 @@ class PeliculasRepository(application: Application) {
         list_peliculas = peliculaDAo?.listarPeliculas()
     }
 
-    fun listar_peliculas(): LiveData<List<PeliculaEntity>>?{
+    fun listar_peliculas(): LiveData<List<ResponseEntity>>?{
         return list_peliculas
     }
 
-    fun insert(pelicula: PeliculaEntity){
-        InsertNotaAsyncTask(peliculaDAo).execute(pelicula)
+    fun insert(response: ResponseEntity){
+        InsertNotaAsyncTask(peliculaDAo).execute(response)
     }
 
-    fun delete(pelicula: PeliculaEntity){
-        DeletePeliculaAsyncTask(peliculaDAo).execute(pelicula)
+    fun delete(response: ResponseEntity){
+        DeletePeliculaAsyncTask(peliculaDAo).execute(response)
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class DeletePeliculaAsyncTask(private val notaDao: PeliculaDao?) : AsyncTask<PeliculaEntity,Void,Void>(){
+    inner class DeletePeliculaAsyncTask(private val peliculaDao: PeliculaDao?) : AsyncTask<ResponseEntity,Void,Void>(){
 
-        override fun doInBackground(vararg pelicula: PeliculaEntity): Void? {
-            notaDao?.delete(pelicula[0])
+        override fun doInBackground(vararg response: ResponseEntity): Void? {
+            peliculaDao?.delete(response[0])
             return  null
         }
 
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class InsertNotaAsyncTask(private val notaDao: PeliculaDao?) : AsyncTask<PeliculaEntity,Void,Void>(){
+    inner class InsertNotaAsyncTask(private val peliculaDao: PeliculaDao?) : AsyncTask<ResponseEntity,Void,Void>(){
 
-        override fun doInBackground(vararg pelicula: PeliculaEntity): Void? {
-            notaDao?.insert(pelicula[0])
+        override fun doInBackground(vararg response: ResponseEntity): Void? {
+            peliculaDao?.insert(response[0])
             return  null
         }
 
     }
 
     //ws
-    fun obtenerPeliculas(): LiveData<List<Pelicula>> {
+    fun obtenerPeliculas(): LiveData<ResponseApi> {
 
-        if (productos == null) {
-            productos = MutableLiveData()
+        if (pelicula == null) {
+            pelicula = MutableLiveData()
             listarProductos()
         }
 
-        return productos as MutableLiveData<List<Pelicula>>
+        return pelicula as MutableLiveData<ResponseApi>
     }
 
     private fun listarProductos() {
 
-        webservice.listarPeliculas().enqueue(object : Callback<ArrayList<Pelicula>> {
-            override fun onResponse(call: Call<ArrayList<Pelicula>>, response: Response<ArrayList<Pelicula>>) {
-                productos?.value = response.body()
-            }
+        webservice.listarPeliculas().enqueue(object : Callback<ResponseApi> {
+            override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
+                Log.e("jledesma", t.message.toString())            }
 
-            override fun onFailure(call: Call<ArrayList<Pelicula>>, t: Throwable) {
-
-                Log.e("TAG", t.message.toString())
+            override fun onResponse(call: Call<ResponseApi>, response: Response<ResponseApi>) {
+                pelicula?.value = response.body()
+                //Log.e("jledesma", response.body()?)
             }
         })
     }

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = arrayOf(PeliculaEntity::class), version = 1)
+@Database(entities = arrayOf(ResponseEntity::class), version = 1)
 abstract class PeliculasDatabase : RoomDatabase(){
 
     abstract fun notaDao():PeliculaDao
@@ -46,12 +46,12 @@ abstract class PeliculasDatabase : RoomDatabase(){
 
         override fun doInBackground(vararg p0: Void?): Void? {
 
-            notaDao?.insert(PeliculaEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(PeliculaEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(PeliculaEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(PeliculaEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(PeliculaEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
-            notaDao?.insert(PeliculaEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
+            notaDao?.insert(ResponseEntity(titulo = "Titulo01",descripcion = "Descripcion01"))
 
             return null
         }
