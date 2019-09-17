@@ -2,12 +2,12 @@ package com.fernandopretell.rappidemo.presentation
 
 import android.content.Context
 import android.content.IntentFilter
-import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Toast
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
@@ -26,9 +26,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.jledesma.dia2.viewmodel.PeliculaViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main_scrolling.*
-import android.widget.TextView
-import android.view.View
-import android.widget.ImageView
 
 
 class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiverListener {
@@ -139,29 +136,21 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
         ConnectivityReceiver.connectivityReceiverListener = this
     }
     private fun showNetworkMessage(isConnected: Boolean) {
+
         if (!isConnected) {
-            snackBar = Snackbar.make(findViewById(R.id.nsContainer), "", Snackbar.LENGTH_LONG)
-            /*snackBar.setActionTextColor(Color.BLUE)
+            snackBar = Snackbar.make(nsContainer, "", Snackbar.LENGTH_LONG)
+            snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
 
-            val layout = (Snackbar.SnackbarLayout)snackBar.getView as Snackbar.SnackbarLayout
-            val textView =layout.findViewById(android.support.design.R.id.snackbar_text) as TextView
-            textView.visibility = View.INVISIBLE
-
-            val snackView = LayoutInflater.inflate(R.layout., null)
-            val imageView = snackView.findViewById(R.id.image) as ImageView
-            imageView.setImageBitmap(image)
-            val textViewTop = snackView.findViewById(R.id.text) as TextView
-            textViewTop.setText(text)
-            textViewTop.setTextColor(Color.WHITE)
-
+            val layout = snackBar?.getView() as Snackbar.SnackbarLayout
+            layout.setBackgroundColor(ContextCompat.getColor(layout.context, android.R.color.transparent))
             layout.setPadding(0, 0, 0, 0)
 
+            val snackView = LayoutInflater.from(this@MainActivity).inflate(R.layout.snack_bar, null) as FrameLayout
+
             layout.addView(snackView, 0)
-            snackbar.show()*/
-
-
-            snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
             snackBar?.show()
+
+
         } else {
             snackBar?.dismiss()
         }
