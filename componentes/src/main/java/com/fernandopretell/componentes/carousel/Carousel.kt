@@ -31,8 +31,6 @@ class Carousel: RelativeLayout {
 
     var processData: Boolean = true
 
-    var showMoreCard: Boolean = false
-
     var listItems = arrayListOf<Comparable<*>>()
 
     var textLabel: String? = context.resources.getString(R.string.carousel_label)
@@ -157,10 +155,6 @@ class Carousel: RelativeLayout {
         override fun pressedItem(item: CardModel, position: Int) {
             carouselListener?.pressedItem(item, position)
         }
-
-        override fun onBindMulti(imagenCard: ImageView, position: Int) {
-            carouselListener?.bindMulti(imagenCard, position)
-        }
     }
 
     interface CarouselListener {
@@ -168,6 +162,5 @@ class Carousel: RelativeLayout {
 
         fun pressedItem(item: CardModel, position: Int)
 
-        fun bindMulti(multiItem: ImageView, position: Int)
     }
 }

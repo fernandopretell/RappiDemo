@@ -1,10 +1,12 @@
 package com.fernandopretell.rappidemo.presentation
 
 import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -13,9 +15,11 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.fernandopretell.componentes.carousel.Carousel
 import com.fernandopretell.componentes.carousel.models.BannerModel
 import com.fernandopretell.componentes.carousel.models.CardModel
 import com.fernandopretell.rappidemo.R
+import com.fernandopretell.rappidemo.model.CardModelParcelable
 import com.fernandopretell.rappidemo.model.ResponseFinal
 import com.fernandopretell.rappidemo.source.local.ResponseEntity
 import com.fernandopretell.rappidemo.source.remote.ResponseApi
@@ -26,6 +30,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.jledesma.dia2.viewmodel.PeliculaViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main_scrolling.*
+import kotlin.math.round
 
 
 class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiverListener {
@@ -80,17 +85,56 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
 
         val url = Constants.URL_BASE+response.backdrop_path
 
+        val recaudacion = round((response.revenue.toDouble()/1000000)).toInt()
+
         tvTitulo.text = response.name
         tvDescripcion.text = response.description
+        tvRevenue.text = "$recaudacion Mlls"
 
         val requestOptions = RequestOptions()
-            //.placeholder(placeholder)
+            .placeholder(R.drawable.ic_image_default)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 
         Glide.with(this)
             .load(url)
             .apply(requestOptions)
             .into(ivHeader)
+
+        carousel1.carouselListener = object : Carousel.CarouselListener {
+
+            override fun pressedItem(item: CardModel, position: Int) {
+
+                val card = transformToParcelable(item)
+                val intent = Intent(this@MainActivity,VistaDetalleActivity::class.java)
+                intent.putExtra("pelicula",card)
+                startActivity(intent)
+            }
+        }
+
+        carousel2.carouselListener = object : Carousel.CarouselListener {
+
+            override fun pressedItem(item: CardModel, position: Int) {
+                val card = transformToParcelable(item)
+                val intent = Intent(this@MainActivity,VistaDetalleActivity::class.java)
+                intent.putExtra("pelicula",card)
+                startActivity(intent)
+            }
+        }
+
+        carousel3.carouselListener = object : Carousel.CarouselListener {
+
+            override fun pressedItem(item: CardModel, position: Int) {
+                val card = transformToParcelable(item)
+                val intent = Intent(this@MainActivity,VistaDetalleActivity::class.java)
+                intent.putExtra("pelicula",card)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun transformToParcelable(item: CardModel): CardModelParcelable {
+
+        return CardModelParcelable(item.id_remote,item.original_title,item.vote_count,item.popularity,item.poster_path,item.backdrop_path,item.video,item.adult,item.vote_average,item.overview,item.release_date)
     }
 
     fun transformResponseEntityToFinal(data:ResponseEntity):ResponseFinal{
@@ -139,17 +183,17 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
 
         if (!isConnected) {
             snackBar = Snackbar.make(nsContainer, "", Snackbar.LENGTH_LONG)
-            snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
+
 
             val layout = snackBar?.getView() as Snackbar.SnackbarLayout
             layout.setBackgroundColor(ContextCompat.getColor(layout.context, android.R.color.transparent))
             layout.setPadding(0, 0, 0, 0)
 
-            val snackView = LayoutInflater.from(this@MainActivity).inflate(R.layout.snack_bar, null) as FrameLayout
+            val snackView = LayoutInflater.from(this@MainActivity).inflate(R.layout.snack_bar, null) as View
 
             layout.addView(snackView, 0)
+            snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
             snackBar?.show()
-
 
         } else {
             snackBar?.dismiss()

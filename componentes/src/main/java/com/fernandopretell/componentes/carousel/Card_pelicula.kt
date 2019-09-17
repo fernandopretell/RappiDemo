@@ -74,7 +74,7 @@ class Card_pelicula:RelativeLayout {
         val url = Constants_comp.URL_BASE+imageURL
 
         val requestOptions = RequestOptions()
-            //.placeholder(placeholder)
+            .placeholder(R.drawable.ic_image_default)
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 

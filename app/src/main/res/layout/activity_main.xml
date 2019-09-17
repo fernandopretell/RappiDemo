@@ -42,21 +42,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/gradient"/>
-                <TextView
-                    android:id="@+id/tvDescripcion"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="bottom|center_horizontal"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:text="sdnbsdmbcsdbcmnsdcbdmsnb,cnsd,fnnbfmdnbvmdsvbdsmncvb xcmnvbxcmnbvmncbvmxcnbvmnxcbmvxbcvmcnxbvmcxbvmcxbmvcnxcmnsdbcmsdbcsdbsdbsdm"
-                    android:fontFamily="@font/lato_italic"
-                    />
+                    android:orientation="vertical"
+                    android:gravity="bottom" >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="16dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_money"/>
+                        <TextView
+                            android:id="@+id/tvRevenue"
+                            android:textSize="16sp"
+                            android:layout_marginStart="8dp"
+                            android:textColor="@color/colorRappi"
+                            android:textStyle="italic"
+                            android:gravity="start|center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"/>
 
-
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvDescripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom|center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/lato_italic"/>
+                </LinearLayout>
 
             </FrameLayout>
 

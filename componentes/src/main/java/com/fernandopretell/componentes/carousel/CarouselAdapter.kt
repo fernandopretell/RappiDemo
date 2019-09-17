@@ -124,5 +124,4 @@ interface CardItemListener {
 
     fun pressedItem(item: CardModel, position: Int)
 
-    fun onBindMulti(imagenCard: ImageView, position: Int)
 }

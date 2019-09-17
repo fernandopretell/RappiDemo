@@ -18,9 +18,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black"
+            android:background="@color/colorOscuro"
             android:alpha="0.80"
-            android:contentDescription="sombreado"/>
+            android:contentDescription="@string/sombreado"/>
         <TextView
             android:id="@+id/tvTituloBanner"
             android:layout_width="match_parent"
@@ -32,7 +32,5 @@
             android:textSize="28sp"/>
 
     </FrameLayout>
-
-
 
 </androidx.cardview.widget.CardView>
