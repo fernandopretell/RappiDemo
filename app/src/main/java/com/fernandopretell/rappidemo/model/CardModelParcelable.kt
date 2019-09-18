@@ -28,8 +28,7 @@ class CardModelParcelable(
         parcel.readDouble(),
         parcel.readString(),
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id_remote)

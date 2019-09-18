@@ -11,11 +11,5 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/carousel_default_height_recyclerview"
         android:background="@color/colorPrimary"/>
-        <ProgressBar
-            android:id="@+id/itemsLoading"
-            android:theme="@style/Carousel.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
 
 </RelativeLayout>

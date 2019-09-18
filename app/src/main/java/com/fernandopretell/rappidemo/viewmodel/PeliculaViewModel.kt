@@ -22,13 +22,13 @@ class PeliculaViewModel(application: Application): AndroidViewModel(application)
         list_peliculas = peliculaRepository?.listar_peliculas()
     }
 
-    fun listarPeliculas(): LiveData<ResponseEntity>? {
+    fun listarPeliculasLocal(): LiveData<ResponseEntity>? {
 
         return list_peliculas
     }
 
     //ws
-    fun listarPeliculasRemoto(): LiveData<ResponseApi> {
+    fun getPeliculasRemoto(): LiveData<ResponseApi> {
         return peliculaRepository?.obtenerPeliculas()!!
     }
 }

@@ -61,7 +61,6 @@ class Carousel: RelativeLayout {
 
     private fun setupUI() {
 
-        showLoading()
         lm = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         carouselAdapter = CarouselAdapter(
             carouselItemListener,
@@ -101,15 +100,6 @@ class Carousel: RelativeLayout {
         itemsRecycler.requestLayout()
     }
 
-    fun showLoading() {
-        itemsLoading.visibility = View.VISIBLE
-        itemsRecycler.visibility = View.GONE
-    }
-
-    fun isLoading() : Boolean {
-        return itemsLoading.visibility == View.VISIBLE
-    }
-
     fun resetScroll() {
         itemsRecycler.adapter?.let {
             val items = (it as CarouselAdapter).itemCount
@@ -122,13 +112,12 @@ class Carousel: RelativeLayout {
 
     fun updateList(list: ArrayList<CardModel>, banner: BannerModel) {
         if (!list.isEmpty()) {
+            listItems.clear()
             listItems.addAll(list)
 
                 carouselAdapter.updateData(processList(listItems,banner))
 
-
             itemsRecycler.visibility = View.VISIBLE
-            itemsLoading.visibility = View.GONE
 
         }
     }

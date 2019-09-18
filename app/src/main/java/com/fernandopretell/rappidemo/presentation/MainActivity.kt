@@ -7,7 +7,6 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -47,14 +46,14 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
 
         registerReceiver(ConnectivityReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
-        if(isNetworkVConnected(this)){
-             notaViewModel!!.listarPeliculasRemoto().observe(this, Observer<ResponseApi> { response ->
-                val dataApi = response
-                 dataApi?.let { transformResponseApiToFinal(it) }?.let { actualizarUI(it) }
-            })
+        val conneted = isNetworkVConnected(this)
+
+        if(conneted){
+             notaViewModel!!.getPeliculasRemoto()
+                 showNetworkMessage(conneted)
         }
 
-        notaViewModel!!.listarPeliculas()?.observe(this, Observer<ResponseEntity> { response ->
+        notaViewModel!!.listarPeliculasLocal()?.observe(this, Observer<ResponseEntity> { response ->
             val dataEntity = response
             dataEntity?.let { transformResponseEntityToFinal(it) }?.let { actualizarUI(it) }
         })
@@ -99,6 +98,11 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
             .load(url)
             .apply(requestOptions)
             .into(ivHeader)
+
+        ivIconBuscador.setOnClickListener {
+            val intent = Intent(this@MainActivity,BuscadorActivity::class.java)
+            startActivity(intent)
+        }
 
         carousel1.carouselListener = object : Carousel.CarouselListener {
 
@@ -203,7 +207,7 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
     fun isNetworkVConnected(context: Context):Boolean{
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting
+        return activeNetwork != null && activeNetwork.isConnected
 
     }
 }

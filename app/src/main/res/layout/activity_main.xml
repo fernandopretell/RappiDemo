@@ -81,6 +81,8 @@
                         android:fontFamily="@font/lato_italic"/>
                 </LinearLayout>
 
+
+
             </FrameLayout>
 
             <androidx.appcompat.widget.Toolbar
@@ -100,6 +102,13 @@
                         android:textSize="30sp"
                         android:textColor="@android:color/white"
                         android:gravity="center" />
+                    <ImageView
+                        android:id="@+id/ivIconBuscador"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_search"
+                        android:layout_marginEnd="8dp"
+                        android:layout_gravity="center_vertical|end"/>
                 </FrameLayout>
 
             </androidx.appcompat.widget.Toolbar>

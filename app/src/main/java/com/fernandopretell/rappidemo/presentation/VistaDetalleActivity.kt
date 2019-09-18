@@ -4,11 +4,10 @@ package com.fernandopretell.rappidemo.presentation
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.format.DateFormat.format
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -25,8 +24,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-
-
 class VistaDetalleActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityReceiverListener {
 
     private var snackBar: Snackbar? = null
@@ -38,20 +35,22 @@ class VistaDetalleActivity : AppCompatActivity(), ConnectivityReceiver.Connectiv
 
         overridePendingTransitionEnter()
 
-        val card =intent.getParcelableExtra<CardModelParcelable>("pelicula")
+        val card =intent?.getParcelableExtra<CardModelParcelable?>("pelicula")
 
-        card.let {
+        val conneted = isNetworkVConnected(this)
+
+        card?.let {
 
             val fmt = SimpleDateFormat("yyyy-MM-dd")
             val fmt2 = SimpleDateFormat("MMM yyyy")
 
-            val date = fmt.parse(card.release_date)
+            val date = fmt.parse(card.release_date ?: "")
 
             tvDescripcionEnDetalle.text = card.overview
             tvNombreEnDetalle.text = card.original_title
-            tvRelease.text = fmt2.format(date).toUpperCase()
+            tvRelease.text = fmt2.format(date ?: Date()).toUpperCase()
             tv_voteAverage.text = card.vote_average.toString()
-            voteCount.text = card.vote_count.toString() + " votes"
+            voteCount.text = card.vote_count.toString() + getString(R.string.votes)
 
             val url = Constants.URL_BASE+card.backdrop_path
 
@@ -64,7 +63,7 @@ class VistaDetalleActivity : AppCompatActivity(), ConnectivityReceiver.Connectiv
                 .apply(requestOptions)
                 .into(ivImagenDetalle)
 
-
+            if(conneted) showNetworkMessage(conneted)
 
             //if()
         }
@@ -100,6 +99,12 @@ class VistaDetalleActivity : AppCompatActivity(), ConnectivityReceiver.Connectiv
         } else {
             snackBar?.dismiss()
         }
+    }
+
+    fun isNetworkVConnected(context: Context):Boolean{
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = cm.activeNetworkInfo
+        return activeNetwork != null && activeNetwork.isConnected
     }
 
     /**

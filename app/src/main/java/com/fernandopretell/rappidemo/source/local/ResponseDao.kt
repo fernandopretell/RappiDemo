@@ -16,6 +16,6 @@ interface ResponseDao {
     @Query("DELETE FROM TABLA_RESPONSE")
     fun deleteAll()
 
-    @Query("SELECT * FROM TABLA_RESPONSE order by id desc")
+    @Query("SELECT * FROM TABLA_RESPONSE LIMIT 1")
     fun obtenerData(): LiveData<ResponseEntity>
 }
