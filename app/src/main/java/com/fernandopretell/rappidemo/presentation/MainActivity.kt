@@ -26,6 +26,7 @@ import com.fernandopretell.rappidemo.util.ConnectivityReceiver
 import com.fernandopretell.rappidemo.util.Constants
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.jledesma.dia2.viewmodel.PeliculaViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main_scrolling.*
@@ -101,6 +102,7 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
 
         ivIconBuscador.setOnClickListener {
             val intent = Intent(this@MainActivity,BuscadorActivity::class.java)
+            intent.putExtra("pelicula_list", Gson().toJson(response.results))
             startActivity(intent)
         }
 
@@ -108,7 +110,7 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
 
             override fun pressedItem(item: CardModel, position: Int) {
 
-                val card = transformToParcelable(item)
+                val card = transformToParcelableCardModel(item)
                 val intent = Intent(this@MainActivity,VistaDetalleActivity::class.java)
                 intent.putExtra("pelicula",card)
                 startActivity(intent)
@@ -118,7 +120,7 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
         carousel2.carouselListener = object : Carousel.CarouselListener {
 
             override fun pressedItem(item: CardModel, position: Int) {
-                val card = transformToParcelable(item)
+                val card = transformToParcelableCardModel(item)
                 val intent = Intent(this@MainActivity,VistaDetalleActivity::class.java)
                 intent.putExtra("pelicula",card)
                 startActivity(intent)
@@ -128,7 +130,7 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
         carousel3.carouselListener = object : Carousel.CarouselListener {
 
             override fun pressedItem(item: CardModel, position: Int) {
-                val card = transformToParcelable(item)
+                val card = transformToParcelableCardModel(item)
                 val intent = Intent(this@MainActivity,VistaDetalleActivity::class.java)
                 intent.putExtra("pelicula",card)
                 startActivity(intent)
@@ -136,7 +138,9 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
         }
     }
 
-    private fun transformToParcelable(item: CardModel): CardModelParcelable {
+
+
+    private fun transformToParcelableCardModel(item: CardModel): CardModelParcelable {
 
         return CardModelParcelable(item.id_remote,item.original_title,item.vote_count,item.popularity,item.poster_path,item.backdrop_path,item.video,item.adult,item.vote_average,item.overview,item.release_date)
     }

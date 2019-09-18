@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import biz.belcorp.mobile.components.core.decorations.CustomHorizontalDecoration
@@ -23,6 +24,8 @@ class Carousel: RelativeLayout {
 
     var lm: LinearLayoutManager? = null
 
+    var gr: GridLayoutManager? = null
+
     var hasBanner: Boolean = false
 
     var bannerPlaceHolder: Drawable? = null
@@ -36,6 +39,7 @@ class Carousel: RelativeLayout {
     var textLabel: String? = context.resources.getString(R.string.carousel_label)
     var textLabelSize: Float = context.resources.getDimension(R.dimen.carousel_default_size_text_label)
     var heightRecycler: Float = context.resources.getDimension(R.dimen.carousel_default_height_recyclerview)
+    var layoutRecycler: String? = context.resources.getString(R.string.carousel_default_layout_recyclerview)
 
     constructor(context: Context) : super(context) {
         inflate(context, R.layout.carousel, this)
@@ -54,6 +58,7 @@ class Carousel: RelativeLayout {
             textLabel = ta.getString(R.styleable.Carousel_carousel_textLabel)
             textLabelSize = ta.getDimension(R.styleable.Carousel_carousel_size_textLabel, textLabelSize)
             heightRecycler = ta.getDimension(R.styleable.Carousel_carousel_height_recycler, heightRecycler)
+            layoutRecycler = ta.getString(R.styleable.Carousel_carousel_layout_recycler)
         } finally {
             ta.recycle()
         }
@@ -61,19 +66,34 @@ class Carousel: RelativeLayout {
 
     private fun setupUI() {
 
-        lm = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        if(layoutRecycler.equals("linear")){
+            lm = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            itemsRecycler.layoutManager = lm
+            itemsRecycler.isNestedScrollingEnabled = false
+        }else if(layoutRecycler.equals("grid")){
+            gr = GridLayoutManager(context,3)
+            itemsRecycler.layoutManager = gr
+        }
+
+        itemsRecycler.layoutParams = RelativeLayout.LayoutParams(itemsRecycler.layoutParams.width,heightRecycler.toInt())
+
+
         carouselAdapter = CarouselAdapter(
             carouselItemListener,
             context
         )
-        itemsRecycler.layoutManager = lm
+
         itemsRecycler.setHasFixedSize(true)
         itemsRecycler.adapter = carouselAdapter
-        itemsRecycler.isNestedScrollingEnabled = false
+
     }
 
     fun setItems(list: ArrayList<CardModel>,banner:BannerModel){
         updateList(list,banner)
+    }
+
+    fun setItemsWithOutBanner(list: ArrayList<CardModel>){
+        updateListWithOutBanner(list)
     }
 
     fun updateBannerPlaceHolder(newBannerPH: Drawable) {
@@ -100,6 +120,11 @@ class Carousel: RelativeLayout {
         itemsRecycler.requestLayout()
     }
 
+    fun setHeightWrap() {
+        itemsRecycler.layoutParams = RelativeLayout.LayoutParams(itemsRecycler.layoutParams.width, RelativeLayout.LayoutParams.MATCH_PARENT)
+        itemsRecycler.requestLayout()
+    }
+
     fun resetScroll() {
         itemsRecycler.adapter?.let {
             val items = (it as CarouselAdapter).itemCount
@@ -116,6 +141,18 @@ class Carousel: RelativeLayout {
             listItems.addAll(list)
 
                 carouselAdapter.updateData(processList(listItems,banner))
+
+            itemsRecycler.visibility = View.VISIBLE
+
+        }
+    }
+
+    fun updateListWithOutBanner(list: ArrayList<CardModel>) {
+        if (!list.isEmpty()) {
+            listItems.clear()
+            listItems.addAll(list)
+
+            carouselAdapter.updateData(listItems)
 
             itemsRecycler.visibility = View.VISIBLE
 

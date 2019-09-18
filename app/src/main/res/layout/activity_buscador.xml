@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorOscuro"
     tools:context="com.fernandopretell.rappidemo.presentation.BuscadorActivity">
 
     <ProgressBar
@@ -31,11 +32,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvBuscarPelicula"
+        <com.fernandopretell.componentes.carousel.Carousel
+            android:id="@+id/carouselBuscador"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="match_parent"
+            app:carousel_layout_recycler="grid"
+            app:carousel_height_recycler="-1dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

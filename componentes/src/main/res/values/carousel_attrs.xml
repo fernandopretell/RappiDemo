@@ -12,6 +12,7 @@
         <attr name="carousel_textLabel" format="string"/>
         <attr name="carousel_size_textLabel" format="dimension"/>
         <attr name="carousel_height_recycler" format="dimension"/>
+        <attr name="carousel_layout_recycler" format="string"/>
     </declare-styleable>
 
 </resources>
