@@ -28,7 +28,7 @@ class PeliculaViewModel(application: Application): AndroidViewModel(application)
     }
 
     //ws
-    fun getPeliculasRemoto(): LiveData<ResponseApi> {
-        return peliculaRepository?.obtenerPeliculas()!!
+    fun getPeliculasRemoto(id: Int): LiveData<ResponseApi> {
+        return peliculaRepository?.obtenerPeliculas(id)!!
     }
 }

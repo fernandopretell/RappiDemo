@@ -9,27 +9,41 @@
     tools:context=".presentation.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <com.fernandopretell.componentes.carousel.Carousel
-            android:id="@+id/carousel1"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/contaninerMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <com.fernandopretell.componentes.carousel.Carousel
+                android:id="@+id/carousel1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:carousel_layout_recycler="linear"/>
+            <com.fernandopretell.componentes.carousel.Carousel
+                android:id="@+id/carousel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:carousel_layout_recycler="linear"/>
+            <com.fernandopretell.componentes.carousel.Carousel
+                android:id="@+id/carousel3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:carousel_layout_recycler="linear"/>
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/pbMain"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:carousel_layout_recycler="linear"/>
-        <com.fernandopretell.componentes.carousel.Carousel
-            android:id="@+id/carousel2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:carousel_layout_recycler="linear"/>
-        <com.fernandopretell.componentes.carousel.Carousel
-            android:id="@+id/carousel3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:carousel_layout_recycler="linear"/>
-    </LinearLayout>
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+
 
 
 

@@ -69,19 +69,19 @@ class PeliculasRepository(application: Application) {
     }
 
     //ws
-    fun obtenerPeliculas(): LiveData<ResponseApi> {
+    fun obtenerPeliculas(id: Int): LiveData<ResponseApi> {
 
         if (response == null) {
             response = MutableLiveData()
-            listarPeliculasRemoto()
+            listarPeliculasRemoto(id)
         }
 
         return response as MutableLiveData<ResponseApi>
     }
 
-    private fun listarPeliculasRemoto() {
+    private fun listarPeliculasRemoto(id: Int) {
 
-        webserviceData.obtenerDataRemota(6).enqueue(object : Callback<ResponseApi> {
+        webserviceData.obtenerDataRemota(id,cat).enqueue(object : Callback<ResponseApi> {
             override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
                 Log.e("TAG", t.message.toString())
             }

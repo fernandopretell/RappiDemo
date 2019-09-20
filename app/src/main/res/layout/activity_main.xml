@@ -53,6 +53,7 @@
                         android:orientation="horizontal"
                         android:layout_marginStart="16dp">
                         <ImageView
+                            android:id="@+id/icMoney"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_money"/>
@@ -94,13 +95,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="16dp">
                     <ImageView
                         android:id="@+id/ivCambiarTema"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_cambiar_tema"
                         android:layout_marginEnd="8dp"
                         android:layout_gravity="center_vertical|end"/>
                     <androidx.appcompat.widget.AppCompatTextView
@@ -121,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/ic_search"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_gravity="center_vertical|end"/>
                 </LinearLayout>
 

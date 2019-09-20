@@ -12,6 +12,6 @@ import retrofit2.http.Path
 interface WebServiceData {
 
     @Headers("Content-Type: application/json","Authorization: Bearer ${Constants.API_KEY}")
-    @GET("list/{list_id}?page=1&api_key=<<api_key>>")
-    fun obtenerDataRemota(@Path("list_id") list_id: Int?): Call<ResponseApi>
+    @GET("list/{list_id}?page=1&sort_by={sort}")
+    fun obtenerDataRemota(@Path("list_id") list_id: Int?,@Path("sort") sort: String?): Call<ResponseApi>
 }

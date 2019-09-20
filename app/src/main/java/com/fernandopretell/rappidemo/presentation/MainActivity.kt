@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -41,26 +42,38 @@ class MainActivity() : BaseActivity(){
 
     private var notaViewModel: PeliculaViewModel? = null
     private var snackBar: Snackbar? = null
+    private var id: Int? = null
+    private var conneted: Boolean? = null
+    private var cat: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        pbMain.visibility = View.VISIBLE
+        ivIconBuscador.visibility = View.GONE
+        icMoney.visibility = View.GONE
+
+        id = intent.getIntExtra("id",1)
+
+
         notaViewModel = ViewModelProviders.of(this).get(PeliculaViewModel::class.java)
 
-        val conneted = isNetworkVConnected(this)
+        conneted = isNetworkVConnected(this)
 
-        if(conneted){
-             notaViewModel!!.getPeliculasRemoto()
-                 showNetworkMessage(conneted)
+        if(conneted as Boolean){
+            notaViewModel!!.getPeliculasRemoto(id?:1)
+            showNetworkMessage(conneted as Boolean)
         }
 
-        notaViewModel!!.listarPeliculasLocal()?.observe(this, Observer<ResponseEntity> { response ->
-            val dataEntity = response
-            dataEntity?.let { transformResponseEntityToFinal(it) }?.let { actualizarUI(it) }
-        })
+        Handler().postDelayed({
 
-        verifyStoragePermissions(this)
+            notaViewModel!!.listarPeliculasLocal()?.observe(this, Observer<ResponseEntity> { response ->
+                val dataEntity = response
+                dataEntity?.let { transformResponseEntityToFinal(it) }?.let { actualizarUI(it) }
+            })
+
+        }, 3000)
     }
 
     private fun actualizarUI(response: ResponseFinal) {
@@ -111,18 +124,17 @@ class MainActivity() : BaseActivity(){
                 .load(uriFile)
                 .apply(requestOptions)
                 .into(ivHeader)
+
+            pbMain.visibility = View.GONE
+            contaninerMain.visibility = View.VISIBLE
+            ivIconBuscador.visibility = View.VISIBLE
+            icMoney.visibility = View.VISIBLE
         }
-
-
 
         ivIconBuscador.setOnClickListener {
             val intent = Intent(this@MainActivity,BuscadorActivity::class.java)
             intent.putExtra("pelicula_list", Gson().toJson(response.results))
             startActivity(intent)
-        }
-
-        ivCambiarTema.setOnClickListener {
-
         }
 
         carousel1.carouselListener = object : Carousel.CarouselListener {
@@ -156,6 +168,11 @@ class MainActivity() : BaseActivity(){
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        conneted?.let { showNetworkMessage(it) }
     }
 
     private fun transformToParcelableCardModel(item: CardModel): CardModelParcelable {
@@ -197,45 +214,6 @@ class MainActivity() : BaseActivity(){
         return listCard
     }
 
-    private fun verifyStoragePermissions(activity: Activity): Boolean {
-        val PERMISSIONS_STORAGE = arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        val REQUEST_EXTERNAL_STORAGE = 1
-        val permission =
-            ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                activity,
-                PERMISSIONS_STORAGE,
-                REQUEST_EXTERNAL_STORAGE
-            )
-            return false
-        } else {
-            return true
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 100) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(
-                    applicationContext,
-                    "Gracias por darnos los permisos.",
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-                //runtime_permissions();
-            }
-        }
-    }
-
     override fun showNetworkMessage(isConnected: Boolean) {
         if (!isConnected) {
             snackBar = make(nsContainer, "", Snackbar.LENGTH_LONG)
@@ -252,7 +230,7 @@ class MainActivity() : BaseActivity(){
 
         } else {
             snackBar?.dismiss()
-            notaViewModel!!.getPeliculasRemoto()
+            notaViewModel!!.getPeliculasRemoto(id?:1)
         }
     }
 }

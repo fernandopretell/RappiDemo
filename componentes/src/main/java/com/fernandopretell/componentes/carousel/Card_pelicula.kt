@@ -83,9 +83,10 @@ class Card_pelicula:RelativeLayout {
 
         val uriFile = Uri.fromFile(File(imageRoot,imageURL.substring(1)))
 
+        //ivBackdrop_path.setImageURI(uriFile)
+
         val requestOptions = RequestOptions()
             .placeholder(R.drawable.ic_image_default)
-            .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 
         Glide.with(context)
