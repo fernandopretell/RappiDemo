@@ -83,7 +83,7 @@ dependencies {
 
 
     api project(":componentes")
-    compile "org.jetbrains.kotlin:kotlin-reflect:1.3.50"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.50"
 
     // implementation(name: 'core-lib', ext: 'aar')
 

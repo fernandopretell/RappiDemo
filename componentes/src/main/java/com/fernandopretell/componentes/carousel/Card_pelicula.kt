@@ -94,21 +94,6 @@ class Card_pelicula:RelativeLayout {
             .into(ivBackdrop_path)
     }
 
-    fun updateImage(imageURL: String){
-
-        val url = Constants_comp.URL_BASE+imageURL
-
-        val requestOptions = RequestOptions()
-            .placeholder(R.drawable.ic_image_default)
-            .centerCrop()
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-
-        Glide.with(context)
-            .load(url)
-            .apply(requestOptions)
-            .into(ivBackdrop_path)
-    }
-
     interface CardClickListener {
         fun onClick(view: View)
     }

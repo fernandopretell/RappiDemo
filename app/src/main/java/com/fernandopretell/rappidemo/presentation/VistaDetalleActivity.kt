@@ -54,27 +54,29 @@ class VistaDetalleActivity : BaseActivity() {
             tv_voteAverage.text = card.vote_average.toString()
             voteCount.text = card.vote_count.toString() + getString(R.string.votes)
 
-            val appDirectoryName = "RappiDemo"
-            val imageRoot = File(
-                Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_PICTURES
-                ), appDirectoryName
-            )
+            card.backdrop_path.let {
 
-            val uriFile = Uri.fromFile(File(imageRoot,card.backdrop_path!!.substring(1)))
+                val appDirectoryName = "RappiDemo"
+                val imageRoot = File(
+                    Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES
+                    ), appDirectoryName
+                )
 
-            val requestOptions = RequestOptions()
-                .placeholder(R.drawable.ic_image_default)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                val uriFile = Uri.fromFile(File(imageRoot,it!!.substring(1)))
 
-            Glide.with(this)
-                .load(uriFile)
-                .apply(requestOptions)
-                .into(ivImagenDetalle)
+                val requestOptions = RequestOptions()
+                    .placeholder(R.drawable.ic_image_default)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+
+                Glide.with(this)
+                    .load(uriFile)
+                    .apply(requestOptions)
+                    .into(ivImagenDetalle)
+            }
 
             if(conneted) showNetworkMessage(conneted)
         }
-
 
     }
 

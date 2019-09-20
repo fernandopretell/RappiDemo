@@ -353,7 +353,6 @@ class Button: LinearLayout {
         this.gravity = gravity
     }
 
-
     // interface
 
     interface OnClickListener {

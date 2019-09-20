@@ -184,9 +184,6 @@ class Carousel: RelativeLayout {
     }
 
     interface CarouselListener {
-
-
         fun pressedItem(item: CardModel, position: Int)
-
     }
 }

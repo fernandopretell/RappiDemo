@@ -81,7 +81,7 @@ class PeliculasRepository(application: Application) {
 
     private fun listarPeliculasRemoto() {
 
-        webserviceData.obtenerDataRemota().enqueue(object : Callback<ResponseApi> {
+        webserviceData.obtenerDataRemota(6).enqueue(object : Callback<ResponseApi> {
             override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
                 Log.e("TAG", t.message.toString())
             }

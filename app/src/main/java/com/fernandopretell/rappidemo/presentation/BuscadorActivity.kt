@@ -84,7 +84,6 @@ class BuscadorActivity : BaseActivity()  {
                 return false
             }
         })
-
     }
 
     private fun actualizarUI(response: List<Pelicula>) {
@@ -109,30 +108,9 @@ class BuscadorActivity : BaseActivity()  {
         }
     }
 
-    fun transformResponseFinalToListCard(data: ResponseFinal):ArrayList<CardModel>{
-        val listCard = arrayListOf<CardModel>()
-        for(pelicula in data.results){
-            val card = CardModel(pelicula.id,
-                pelicula.original_title,
-                pelicula.vote_count,
-                pelicula.popularity,
-                pelicula.poster_path,
-                pelicula.backdrop_path,
-                pelicula.video,
-                pelicula.adult,
-                pelicula.vote_average,
-                pelicula.overview,
-                pelicula.release_date)
-            listCard.add(card)
-        }
-
-        return listCard
-    }
-
     override fun showNetworkMessage(isConnected: Boolean) {
         if (!isConnected) {
             snackBar = Snackbar.make(containerBuscador, "", Snackbar.LENGTH_LONG)
-
 
             val layout = snackBar?.getView() as Snackbar.SnackbarLayout
             layout.setBackgroundColor(ContextCompat.getColor(layout.context, android.R.color.transparent))
@@ -158,12 +136,4 @@ class BuscadorActivity : BaseActivity()  {
 
         return CardModelParcelable(item.id_remote,item.original_title,item.vote_count,item.popularity,item.poster_path,item.backdrop_path,item.video,item.adult,item.vote_average,item.overview,item.release_date)
     }
-
-    fun transformResponseEntityToFinal(data:ResponseEntity): ResponseFinal {
-        data.let {
-            val res = ResponseFinal(data.id,data.page,data.revenue,data.name,data.description,data.backdrop_path,data.results,data.average_rating,data.poster_path)
-            return res
-        }
-    }
-
 }

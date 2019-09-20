@@ -77,8 +77,6 @@ class Banner : RelativeLayout {
 
     fun updateImageAndTextLocal(item: BannerModel) {
 
-        //val url = Constants_comp.URL_BASE+item.url
-
         val appDirectoryName = "RappiDemo"
         val imageRoot = File(
             Environment.getExternalStoragePublicDirectory(
@@ -94,20 +92,6 @@ class Banner : RelativeLayout {
 
         Glide.with(context)
             .load(uriFile)
-            .apply(requestOptions)
-            .into(bannerImage)
-        tvTituloBanner.text = item.textLabel
-    }
-
-    fun updateImageAndText(item: BannerModel) {
-
-        val url = Constants_comp.URL_BASE+item.url
-        val requestOptions = RequestOptions()
-            //.placeholder(placeholder)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-
-        Glide.with(context)
-            .load(url)
             .apply(requestOptions)
             .into(bannerImage)
         tvTituloBanner.text = item.textLabel

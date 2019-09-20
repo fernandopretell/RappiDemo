@@ -93,8 +93,6 @@ class CarouselAdapter(
         override fun bind(position: Int, item: BannerModel, itemListener: CardItemListener) {
                 banner.updateImageAndTextLocal(item)
         }
-
-
     }
 
     inner class CardMovieViewHolder(
@@ -115,8 +113,6 @@ class CarouselAdapter(
                 }
             }
         }
-
-
     }
 }
 
