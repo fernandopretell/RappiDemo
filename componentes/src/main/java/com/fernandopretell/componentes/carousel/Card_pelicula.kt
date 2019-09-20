@@ -2,6 +2,8 @@ package com.fernandopretell.componentes.carousel
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Environment
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
@@ -13,6 +15,7 @@ import com.fernandopretell.componentes.R
 import com.fernandopretell.componentes.carousel.models.BannerModel
 import kotlinx.android.synthetic.main.banner.view.*
 import kotlinx.android.synthetic.main.card_pelicula.view.*
+import java.io.File
 
 class Card_pelicula:RelativeLayout {
 
@@ -67,6 +70,28 @@ class Card_pelicula:RelativeLayout {
 
     fun updateCornerRadius(radius: Float) {
         cardContainer.radius = cardRadius
+    }
+
+    fun updateImageLocal(imageURL: String){
+
+        val appDirectoryName = "RappiDemo"
+        val imageRoot = File(
+            Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES
+            ), appDirectoryName
+        )
+
+        val uriFile = Uri.fromFile(File(imageRoot,imageURL.substring(1)))
+
+        val requestOptions = RequestOptions()
+            .placeholder(R.drawable.ic_image_default)
+            .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+
+        Glide.with(context)
+            .load(uriFile)
+            .apply(requestOptions)
+            .into(ivBackdrop_path)
     }
 
     fun updateImage(imageURL: String){

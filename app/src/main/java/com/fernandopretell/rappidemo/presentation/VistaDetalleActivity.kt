@@ -4,7 +4,9 @@ package com.fernandopretell.rappidemo.presentation
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.fernandopretell.rappidemo.R
+import com.fernandopretell.rappidemo.base.BaseActivity
 import com.fernandopretell.rappidemo.model.CardModelParcelable
 import com.fernandopretell.rappidemo.util.ConnectivityReceiver
 import com.fernandopretell.rappidemo.util.Constants
@@ -20,11 +23,12 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_vista_detalle.*
 import kotlinx.android.synthetic.main.content_main_scrolling.*
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class VistaDetalleActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityReceiverListener {
+class VistaDetalleActivity : BaseActivity() {
 
     private var snackBar: Snackbar? = null
 
@@ -32,8 +36,6 @@ class VistaDetalleActivity : AppCompatActivity(), ConnectivityReceiver.Connectiv
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vista_detalle)
-
-        overridePendingTransitionEnter()
 
         val card =intent?.getParcelableExtra<CardModelParcelable?>("pelicula")
 
@@ -52,38 +54,33 @@ class VistaDetalleActivity : AppCompatActivity(), ConnectivityReceiver.Connectiv
             tv_voteAverage.text = card.vote_average.toString()
             voteCount.text = card.vote_count.toString() + getString(R.string.votes)
 
-            val url = Constants.URL_BASE+card.backdrop_path
+            val appDirectoryName = "RappiDemo"
+            val imageRoot = File(
+                Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES
+                ), appDirectoryName
+            )
+
+            val uriFile = Uri.fromFile(File(imageRoot,card.backdrop_path!!.substring(1)))
 
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_image_default)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 
             Glide.with(this)
-                .load(url)
+                .load(uriFile)
                 .apply(requestOptions)
                 .into(ivImagenDetalle)
 
             if(conneted) showNetworkMessage(conneted)
-
-            //if()
         }
 
 
     }
 
-    override fun onNetworkConnectionChanged(isConnected: Boolean) {
-        showNetworkMessage(isConnected)
-    }
-
-    override fun finish() {
-        super.finish()
-        overridePendingTransitionExit()
-    }
-
-    private fun showNetworkMessage(isConnected: Boolean) {
-
+    override fun showNetworkMessage(isConnected: Boolean) {
         if (!isConnected) {
-            snackBar = Snackbar.make(nsContainer, "", Snackbar.LENGTH_LONG)
+            snackBar = Snackbar.make(containerVistaDetalle, "", Snackbar.LENGTH_LONG)
 
 
             val layout = snackBar?.getView() as Snackbar.SnackbarLayout
@@ -99,25 +96,5 @@ class VistaDetalleActivity : AppCompatActivity(), ConnectivityReceiver.Connectiv
         } else {
             snackBar?.dismiss()
         }
-    }
-
-    fun isNetworkVConnected(context: Context):Boolean{
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = cm.activeNetworkInfo
-        return activeNetwork != null && activeNetwork.isConnected
-    }
-
-    /**
-     * Overrides the pending Activity transition by performing the "Enter" animation.
-     */
-    protected fun overridePendingTransitionEnter() {
-        overridePendingTransition(R.animator.slide_from_right, R.animator.slide_to_left)
-    }
-
-    /**
-     * Overrides the pending Activity transition by performing the "Exit" animation.
-     */
-    protected fun overridePendingTransitionExit() {
-        overridePendingTransition(R.animator.slide_from_left, R.animator.slide_to_right)
     }
 }

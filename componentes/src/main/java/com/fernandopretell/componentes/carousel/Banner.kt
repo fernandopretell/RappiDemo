@@ -2,6 +2,8 @@ package com.fernandopretell.componentes.carousel
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Environment
 import android.provider.SyncStateContract
 import android.util.AttributeSet
 import android.view.View
@@ -13,6 +15,7 @@ import com.fernandopretell.componentes.Constants_comp
 import com.fernandopretell.componentes.R
 import com.fernandopretell.componentes.carousel.models.BannerModel
 import kotlinx.android.synthetic.main.banner.view.*
+import java.io.File
 
 
 class Banner : RelativeLayout {
@@ -72,11 +75,33 @@ class Banner : RelativeLayout {
         bannerContainer.radius = cardRadius
     }
 
+    fun updateImageAndTextLocal(item: BannerModel) {
+
+        //val url = Constants_comp.URL_BASE+item.url
+
+        val appDirectoryName = "RappiDemo"
+        val imageRoot = File(
+            Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES
+            ), appDirectoryName
+        )
+
+        val uriFile = Uri.fromFile(File(imageRoot,item.url.substring(1)))
+
+        val requestOptions = RequestOptions()
+            //.placeholder(placeholder)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+
+        Glide.with(context)
+            .load(uriFile)
+            .apply(requestOptions)
+            .into(bannerImage)
+        tvTituloBanner.text = item.textLabel
+    }
+
     fun updateImageAndText(item: BannerModel) {
 
         val url = Constants_comp.URL_BASE+item.url
-
-
         val requestOptions = RequestOptions()
             //.placeholder(placeholder)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)

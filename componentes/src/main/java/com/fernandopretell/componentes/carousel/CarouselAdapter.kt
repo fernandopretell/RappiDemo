@@ -91,7 +91,7 @@ class CarouselAdapter(
         private val banner = view.carouselBanner as Banner
 
         override fun bind(position: Int, item: BannerModel, itemListener: CardItemListener) {
-                banner.updateImageAndText(item)
+                banner.updateImageAndTextLocal(item)
         }
 
 
@@ -106,7 +106,7 @@ class CarouselAdapter(
 
         override fun bind(position: Int, item: CardModel, itemListener: CardItemListener) {
 
-            card.updateImage(item.poster_path)
+            card.updateImageLocal(item.poster_path)
 
             // Listener
             card.cardClickListener = object : Card_pelicula.CardClickListener {

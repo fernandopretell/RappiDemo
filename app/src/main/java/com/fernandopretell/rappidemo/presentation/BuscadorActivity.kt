@@ -22,6 +22,7 @@ import com.fernandopretell.componentes.carousel.Carousel
 import com.fernandopretell.componentes.carousel.models.BannerModel
 import com.fernandopretell.componentes.carousel.models.CardModel
 import com.fernandopretell.rappidemo.R
+import com.fernandopretell.rappidemo.base.BaseActivity
 import com.fernandopretell.rappidemo.model.CardModelParcelable
 import com.fernandopretell.rappidemo.model.Pelicula
 import com.fernandopretell.rappidemo.model.ResponseFinal
@@ -39,17 +40,13 @@ import kotlinx.android.synthetic.main.content_main_scrolling.*
 import java.util.ArrayList
 import kotlin.math.round
 
-class BuscadorActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiverListener  {
+class BuscadorActivity : BaseActivity()  {
 
-    private var notaViewModel: PeliculaViewModel? = null
     private var snackBar: Snackbar? = null
-    private var respuesta: ArrayList<Pelicula>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buscador)
-
-        overridePendingTransitionEnter()
 
         val list_card =intent?.getStringExtra("pelicula_list")
 
@@ -66,13 +63,6 @@ class BuscadorActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityRe
         searchBuscarPelicula.setEnabled(false)
 
         actualizarUI(itemList)
-
-        val conneted = isNetworkVConnected(this)
-
-        if(conneted){
-            //notaViewModel!!.getPeliculasRemoto()
-            showNetworkMessage(conneted)
-        }
 
         searchBuscarPelicula.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -139,35 +129,9 @@ class BuscadorActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityRe
         return listCard
     }
 
-    private fun transformPeliculaTocardModel(item: Pelicula): CardModel {
-
-        return CardModel(item.id,item.original_title,item.vote_count,item.popularity,item.poster_path,item.backdrop_path,item.video,item.adult,item.vote_average,item.overview,item.release_date)
-    }
-
-    private fun transformToParcelable(item: CardModel): CardModelParcelable {
-
-        return CardModelParcelable(item.id_remote,item.original_title,item.vote_count,item.popularity,item.poster_path,item.backdrop_path,item.video,item.adult,item.vote_average,item.overview,item.release_date)
-    }
-
-    fun transformResponseEntityToFinal(data:ResponseEntity): ResponseFinal {
-        data.let {
-            val res = ResponseFinal(data.id,data.page,data.revenue,data.name,data.description,data.backdrop_path,data.results,data.average_rating,data.poster_path)
-            return res
-        }
-    }
-
-    override fun onNetworkConnectionChanged(isConnected: Boolean) {
-        showNetworkMessage(isConnected)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ConnectivityReceiver.connectivityReceiverListener = this
-    }
-    private fun showNetworkMessage(isConnected: Boolean) {
-
+    override fun showNetworkMessage(isConnected: Boolean) {
         if (!isConnected) {
-            snackBar = Snackbar.make(nsContainer, "", Snackbar.LENGTH_LONG)
+            snackBar = Snackbar.make(containerBuscador, "", Snackbar.LENGTH_LONG)
 
 
             val layout = snackBar?.getView() as Snackbar.SnackbarLayout
@@ -185,25 +149,21 @@ class BuscadorActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityRe
         }
     }
 
-    fun isNetworkVConnected(context: Context):Boolean{
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = cm.activeNetworkInfo
-        return activeNetwork != null && activeNetwork.isConnected
+    private fun transformPeliculaTocardModel(item: Pelicula): CardModel {
 
+        return CardModel(item.id,item.original_title,item.vote_count,item.popularity,item.poster_path,item.backdrop_path,item.video,item.adult,item.vote_average,item.overview,item.release_date)
     }
 
-    /**
-     * Overrides the pending Activity transition by performing the "Enter" animation.
-     */
-    protected fun overridePendingTransitionEnter() {
-        overridePendingTransition(R.animator.slide_from_right, R.animator.slide_to_left)
+    private fun transformToParcelable(item: CardModel): CardModelParcelable {
+
+        return CardModelParcelable(item.id_remote,item.original_title,item.vote_count,item.popularity,item.poster_path,item.backdrop_path,item.video,item.adult,item.vote_average,item.overview,item.release_date)
     }
 
-    /**
-     * Overrides the pending Activity transition by performing the "Exit" animation.
-     */
-    protected fun overridePendingTransitionExit() {
-        overridePendingTransition(R.animator.slide_from_left, R.animator.slide_to_right)
+    fun transformResponseEntityToFinal(data:ResponseEntity): ResponseFinal {
+        data.let {
+            val res = ResponseFinal(data.id,data.page,data.revenue,data.name,data.description,data.backdrop_path,data.results,data.average_rating,data.poster_path)
+            return res
+        }
     }
 
 }

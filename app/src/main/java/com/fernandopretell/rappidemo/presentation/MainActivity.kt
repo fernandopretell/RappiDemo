@@ -7,7 +7,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -23,6 +25,7 @@ import com.fernandopretell.componentes.carousel.Carousel
 import com.fernandopretell.componentes.carousel.models.BannerModel
 import com.fernandopretell.componentes.carousel.models.CardModel
 import com.fernandopretell.rappidemo.R
+import com.fernandopretell.rappidemo.base.BaseActivity
 import com.fernandopretell.rappidemo.model.CardModelParcelable
 import com.fernandopretell.rappidemo.model.ResponseFinal
 import com.fernandopretell.rappidemo.source.local.ResponseEntity
@@ -33,12 +36,18 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.jledesma.dia2.viewmodel.PeliculaViewModel
+import kotlinx.android.synthetic.main.activity_buscador.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main_scrolling.*
+import java.io.File
 import kotlin.math.round
 
 
-class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiverListener {
+class MainActivity() : BaseActivity(){
+
+    /*override val ctx: Context = this
+    override val layoutSnack: Int = R.layout.snack_bar
+    override val containerSnack: View = nsContainer*/
 
     private var notaViewModel: PeliculaViewModel? = null
     private var snackBar: Snackbar? = null
@@ -48,9 +57,6 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
         setContentView(R.layout.activity_main)
 
         notaViewModel = ViewModelProviders.of(this).get(PeliculaViewModel::class.java)
-
-
-        registerReceiver(ConnectivityReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
         val conneted = isNetworkVConnected(this)
 
@@ -90,7 +96,14 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
         carousel2.setItems(listTopRated,banner2)
         carousel3.setItems(listUpcoming,banner3)
 
-        val url = Constants.URL_BASE+response.backdrop_path
+        val appDirectoryName = "RappiDemo"
+        val imageRoot = File(
+            Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES
+            ), appDirectoryName
+        )
+
+        val uriFile = Uri.fromFile(File(imageRoot,response.backdrop_path.substring(1)))
 
         val recaudacion = round((response.revenue.toDouble()/1000000)).toInt()
 
@@ -103,7 +116,7 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 
         Glide.with(this)
-            .load(url)
+            .load(uriFile)
             .apply(requestOptions)
             .into(ivHeader)
 
@@ -185,42 +198,6 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
         return listCard
     }
 
-    override fun onNetworkConnectionChanged(isConnected: Boolean) {
-        showNetworkMessage(isConnected)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ConnectivityReceiver.connectivityReceiverListener = this
-    }
-    private fun showNetworkMessage(isConnected: Boolean) {
-
-        if (!isConnected) {
-            snackBar = Snackbar.make(nsContainer, "", Snackbar.LENGTH_LONG)
-
-
-            val layout = snackBar?.getView() as Snackbar.SnackbarLayout
-            layout.setBackgroundColor(ContextCompat.getColor(layout.context, android.R.color.transparent))
-            layout.setPadding(0, 0, 0, 0)
-
-            val snackView = LayoutInflater.from(this@MainActivity).inflate(R.layout.snack_bar, null) as View
-
-            layout.addView(snackView, 0)
-            snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
-            snackBar?.show()
-
-        } else {
-            snackBar?.dismiss()
-        }
-    }
-
-    fun isNetworkVConnected(context: Context):Boolean{
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = cm.activeNetworkInfo
-        return activeNetwork != null && activeNetwork.isConnected
-
-    }
-
     private fun verifyStoragePermissions(activity: Activity): Boolean {
         val PERMISSIONS_STORAGE = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -256,10 +233,27 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
                 ).show()
             } else {
                 //runtime_permissions();
-
             }
-
         }
+    }
 
+    override fun showNetworkMessage(isConnected: Boolean) {
+        if (!isConnected) {
+            snackBar = Snackbar.make(nsContainer, "", Snackbar.LENGTH_LONG)
+
+
+            val layout = snackBar?.getView() as Snackbar.SnackbarLayout
+            layout.setBackgroundColor(ContextCompat.getColor(layout.context, android.R.color.transparent))
+            layout.setPadding(0, 0, 0, 0)
+
+            val snackView = LayoutInflater.from(this@MainActivity).inflate(R.layout.snack_bar, null) as View
+
+            layout.addView(snackView, 0)
+            snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
+            snackBar?.show()
+
+        } else {
+            snackBar?.dismiss()
+        }
     }
 }
