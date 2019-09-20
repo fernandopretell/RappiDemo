@@ -11,18 +11,26 @@ import com.fernandopretell.rappidemo.source.local.ResponseDao
 import com.fernandopretell.rappidemo.source.local.ResponseEntity
 import com.fernandopretell.rappidemo.source.local.PeliculasDatabase
 import com.fernandopretell.rappidemo.source.remote.HelperWs
+import com.fernandopretell.rappidemo.util.DownloadFileAsyncTask
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+
 
 class PeliculasRepository(application: Application) {
 
     private var responseDAo: ResponseDao? = null
     var list_peliculas: LiveData<ResponseEntity>? = null
 
+    var sizeList: Int? =null
+    var array = arrayListOf<String>()
+
     //Ws
     private var response: MutableLiveData<ResponseApi>? = null
-    internal var webservice = HelperWs.getService()
+    internal var webserviceData = HelperWs.getServiceData()
+    internal var webserviceImages = HelperWs.getServiceImages()
 
     init {
         val database = PeliculasDatabase.getInstance(application)
@@ -49,7 +57,6 @@ class PeliculasRepository(application: Application) {
             responseDao?.deleteAll()
             return  null
         }
-
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -59,7 +66,6 @@ class PeliculasRepository(application: Application) {
             responseDao?.insert(response[0])
             return  null
         }
-
     }
 
     //ws
@@ -75,7 +81,7 @@ class PeliculasRepository(application: Application) {
 
     private fun listarPeliculasRemoto() {
 
-        webservice.obtenerDataRemota().enqueue(object : Callback<ResponseApi> {
+        webserviceData.obtenerDataRemota().enqueue(object : Callback<ResponseApi> {
             override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
                 Log.e("TAG", t.message.toString())
             }
@@ -85,16 +91,62 @@ class PeliculasRepository(application: Application) {
 
                     200 -> {
                         deleteAll()
-                        response.body()?.let { transformApiToEntity(it) }?.let { insert(it) }
+                        response.body()?.let {
+                            insert(transformApiToEntity(it))
+                            listarUrlImagenes(it)
+                        }
                     }
                 }
             }
         })
     }
 
+    private fun listarUrlImagenes(response: ResponseApi) {
+
+        val list_images = arrayListOf<String>()
+        list_images.add(response.backdrop_path.substring(1))
+        list_images.add(response.poster_path.substring(1))
+
+        for (ls in response.results){
+            list_images.add(ls.backdrop_path.substring(1))
+            list_images.add(ls.poster_path.substring(1))
+        }
+
+        array = ArrayList()
+
+        for (path in list_images) {
+            array.add(path)
+        }
+        sizeList = array.size
+
+        descargarImagenes()
+    }
+
+    private fun descargarImagenes(){
+
+        if (sizeList != 0) {
+            webserviceImages.obtenerImagen(array.get(array.size - sizeList!!)).enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.e("TAG", t.message.toString())
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    when(response.code()){
+
+                        200 -> {
+                            val downloadFileAsyncTask = DownloadFileAsyncTask(array.get(array.size - sizeList!!))
+                            downloadFileAsyncTask.execute(response.body()?.byteStream())
+                            sizeList = sizeList!!.dec()
+                            descargarImagenes()
+                        }
+                    }
+                }
+            })
+        }
+    }
+
     fun transformApiToEntity(response: ResponseApi):ResponseEntity{
 
-        return ResponseEntity(response.id,response.page,response.revenue,response.name,response.description,response.backdrop_path,response.results,response.average_rating,response.poster_path)
-
+        return ResponseEntity(response.id,response.page,response.revenue,response.name,response.description,response.backdrop_path,response.results,response.average_rating,response.poster_path,"","")
     }
 }

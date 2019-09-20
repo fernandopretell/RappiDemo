@@ -13,8 +13,7 @@ class HelperWs {
 
     companion object {
 
-        fun  getConfiguration(): Retrofit {
-
+        fun  getConfigurationServiceData(): Retrofit {
 
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -32,8 +31,30 @@ class HelperWs {
 
         }
 
-        fun getService(): WebService {
-            return getConfiguration().create(WebService::class.java)
+        fun getServiceData(): WebServiceData {
+            return getConfigurationServiceData().create(WebServiceData::class.java)
+        }
+
+        fun  getConfigurationServiceGetImages(): Retrofit {
+
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            val client = OkHttpClient.Builder().addInterceptor(interceptor)
+                .readTimeout(180, TimeUnit.SECONDS)
+                .connectTimeout(180, TimeUnit.SECONDS)
+                .build()
+
+            return Retrofit.Builder()
+                .baseUrl("https://image.tmdb.org/t/p/w500/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+
+
+        }
+
+        fun getServiceImages(): WebServiceImages {
+            return getConfigurationServiceGetImages().create(WebServiceImages::class.java)
         }
     }
 

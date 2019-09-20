@@ -8,7 +8,7 @@ import retrofit2.http.Headers
 /**
  * Created by fernandopretell.
  */
-interface WebService {
+interface WebServiceData {
 
     @Headers("Content-Type: application/json","Authorization: Bearer ${Constants.API_KEY}")
     @GET("list/1?page=1&api_key=<<api_key>>")

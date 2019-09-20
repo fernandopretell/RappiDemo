@@ -5,7 +5,7 @@ import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 
 /**
- * Created by jledesma on 8/23/19.
+ * Created by fernandopretell.
  */
 @Dao
 interface ResponseDao {

@@ -40,7 +40,13 @@ data class ResponseEntity(
         var average_rating: Double,
 
     @ColumnInfo(name = "poster_path")
-        var poster_path: String
+        var poster_path: String,
+
+    @ColumnInfo(name = "poster_path_local")
+        var poster_path_local: String,
+
+    @ColumnInfo(name = "backdrop_path_local")
+        var backdrop_path_local: String
 
 
 ){

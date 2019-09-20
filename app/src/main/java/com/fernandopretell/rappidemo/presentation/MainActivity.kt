@@ -1,13 +1,18 @@
 package com.fernandopretell.rappidemo.presentation
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -58,6 +63,8 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
             val dataEntity = response
             dataEntity?.let { transformResponseEntityToFinal(it) }?.let { actualizarUI(it) }
         })
+
+        verifyStoragePermissions(this)
     }
 
     private fun actualizarUI(response: ResponseFinal) {
@@ -136,9 +143,8 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
                 startActivity(intent)
             }
         }
+
     }
-
-
 
     private fun transformToParcelableCardModel(item: CardModel): CardModelParcelable {
 
@@ -212,6 +218,48 @@ class MainActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiv
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
         return activeNetwork != null && activeNetwork.isConnected
+
+    }
+
+    private fun verifyStoragePermissions(activity: Activity): Boolean {
+        val PERMISSIONS_STORAGE = arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        val REQUEST_EXTERNAL_STORAGE = 1
+        val permission =
+            ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                activity,
+                PERMISSIONS_STORAGE,
+                REQUEST_EXTERNAL_STORAGE
+            )
+            return false
+        } else {
+            return true
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 100) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(
+                    applicationContext,
+                    "Gracias por darnos los permisos.",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                //runtime_permissions();
+
+            }
+
+        }
 
     }
 }
