@@ -6,8 +6,8 @@ Mini proyecto para evaluación técnica para la empresa Rappi.
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Capas de aplicacion](#capas-de-aplicacion)
 - [Responsabilidad de clases](#responsabilidad-de-clases)
-- [Responsabilidad única](#responsabilidad-unica)
-- [Código limpio](#codigo-limpio)
+- [Responsabilidad única](#responsabilidad-única)
+- [Código limpio](#código-limpio)
 
 ---
 ## Estructura del proyecto
