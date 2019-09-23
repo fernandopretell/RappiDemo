@@ -1,3 +1,5 @@
+![video](visuales_github/video.gif) 
+
 # RappiDemo
 Mini proyecto para evaluación técnica para la empresa Rappi.
 
