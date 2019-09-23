@@ -22,56 +22,56 @@ Módulo principal donde se encuentras las actividades y archivos pertenecientes 
 
 - __rappidemo__
   - __base__
-    - [BaseActivity.kt](rappidemo/base/BaseActivity.kt)
+    - [BaseActivity.kt](app/src/main/java/com/fernandopretell/rappidemo/base/BaseActivity.kt)
   - __model__
-    - [CardModelParcelable.kt](rappidemo/model/CardModelParcelable.kt)
-    - [Pelicula.kt](rappidemo/model/Pelicula.kt)
-    - [ResponseFinal.kt](rappidemo/model/ResponseFinal.kt)
+    - [CardModelParcelable.kt](app/src/main/java/com/fernandopretell/rappidemo/model/CardModelParcelable.kt)
+    - [Pelicula.kt](app/src/main/java/com/fernandopretell/rappidemo/model/Pelicula.kt)
+    - [ResponseFinal.kt](app/src/main/java/com/fernandopretell/rappidemo/model/ResponseFinal.kt)
   - __presentation__
-    - [BienvenidaActivity.kt](rappidemo/presentation/BienvenidaActivity.kt)
-    - [BuscadorActivity.kt](rappidemo/presentation/BuscadorActivity.kt)
-    - [MainActivity.kt](rappidemo/presentation/MainActivity.kt)
-    - [VistaDetalleActivity.kt](rappidemo/presentation/VistaDetalleActivity.kt)
+    - [BienvenidaActivity.kt](app/src/main/java/com/fernandopretell/rappidemo/presentation/BienvenidaActivity.kt)
+    - [BuscadorActivity.kt](app/src/main/java/com/fernandopretell/rappidemo/presentation/BuscadorActivity.kt)
+    - [MainActivity.kt](app/src/main/java/com/fernandopretell/rappidemo/presentation/MainActivity.kt)
+    - [VistaDetalleActivity.kt](app/src/main/java/com/fernandopretell/rappidemo/presentation/VistaDetalleActivity.kt)
   - __repository__
-    - [PeliculasRepository.kt](rappidemo/repository/PeliculasRepository.kt)
+    - [PeliculasRepository.kt](app/src/main/java/com/fernandopretell/rappidemo/repository/PeliculasRepository.kt)
   - __source__
     - __local__
-      - [PeliculasDatabase.kt](rappidemo/source/local/PeliculasDatabase.kt)
-      - [ResponseEntity.kt](rappidemo/source/local/ResponseEntity.kt)
-      - [ResponseDao.kt](rappidemo/source/local/ResponseDao.kt)
-      - [ResultConverter.kt](rappidemo/source/local/ResultConverter.kt)
+      - [PeliculasDatabase.kt](app/src/main/java/com/fernandopretell/rappidemo/source/local/PeliculasDatabase.kt)
+      - [ResponseEntity.kt](app/src/main/java/com/fernandopretell/rappidemo/source/local/ResponseEntity.kt)
+      - [ResponseDao.kt](app/src/main/java/com/fernandopretell/rappidemo/source/local/ResponseDao.kt)
+      - [ResultConverter.kt](app/src/main/java/com/fernandopretell/rappidemo/source/local/ResultConverter.kt)
     - __remote__
-      - [HelperWs.kt](rappidemo/source/remote/HelperWs.kt)
-      - [ResponseApi.kt](rappidemo/source/remote/ResponseApi.kt)
-      - [WebServiceData.kt](rappidemo/source/remote/WebServiceData.kt)
-      - [WebServiceImages.kt](rappidemo/source/remote/WebServiceImages.kt)
+      - [HelperWs.kt](app/src/main/java/com/fernandopretell/rappidemo/source/remote/HelperWs.kt)
+      - [ResponseApi.kt](app/src/main/java/com/fernandopretell/rappidemo/source/remote/ResponseApi.kt)
+      - [WebServiceData.kt](app/src/main/java/com/fernandopretell/rappidemo/source/remote/WebServiceData.kt)
+      - [WebServiceImages.kt](app/src/main/java/com/fernandopretell/rappidemo/source/remote/WebServiceImages.kt)
   - __util__
-    - [ConnectivityReceiver.kt](rappidemo/util/ConnectivityReceiver.kt)
-    - [Constants.kt](rappidemo/util/Constants.kt)
-    - [DownloadFileAsyncTask.java](rappidemo/util/DownloadFileAsyncTask.java)
+    - [ConnectivityReceiver.kt](app/src/main/java/com/fernandopretell/rappidemo/util/ConnectivityReceiver.kt)
+    - [Constants.kt](app/src/main/java/com/fernandopretell/rappidemo/util/Constants.kt)
+    - [DownloadFileAsyncTask.java](app/src/main/java/com/fernandopretell/rappidemo/util/DownloadFileAsyncTask.java)
   - __viewmodel__
-    - [PeliculaViewModel.kt](rappidemo/viewmodel/PeliculaViewModel.kt)
+    - [PeliculaViewModel.kt](app/src/main/java/com/fernandopretell/rappidemo/viewmodel/PeliculaViewModel.kt)
     
 
 ### Estructura módulo Componentes:
 En este módulo se encuentran las vistas personalizadas(Custom View).
 - __componentes__
   - __button__
-    - [Button.kt](componentes/button/Button.kt)
-  - [Constants_comp.kt](componentes/Constants_comp.kt)
+    - [Button.kt](componentes/src/main/java/com/fernandopretell/componentes/button/Button.kt)    
+  - [Constants_comp.kt](componentes/src/main/java/com/fernandopretell/componentes/Constants_comp.kt)
   - __carousel__
-    - [Banner.kt](componentes/carousel/Banner.kt)
-    - [Card_pelicula.kt](componentes/carousel/Card_pelicula.kt)
-    - [Carousel.kt](componentes/carousel/Carousel.kt)
-    - [CarouselAdapter.kt](componentes/carousel/CarouselAdapter.kt)
+    - [Banner.kt](componentes/src/main/java/com/fernandopretell/componentes/carousel/Banner.kt)
+    - [Card_pelicula.kt](componentes/src/main/java/com/fernandopretell/componentes/carousel/Card_pelicula.kt)
+    - [Carousel.kt](componentes/src/main/java/com/fernandopretell/componentes/carousel/Carousel.kt)
+    - [CarouselAdapter.kt](componentes/src/main/java/com/fernandopretell/componentes/carousel/CarouselAdapter.kt)
     - __models__
-      - [BannerModel.kt](componentes/carousel/models/BannerModel.kt)
+      - [BannerModel.kt](componentes/src/main/java/com/fernandopretell/componentes/carousel/models/BannerModel.kt)
       - [CardModel.kt](componentes/carousel/models/CardModel.kt)
   - __list_bienvenida__
-    - [BienvenidaAdapter.kt](componentes/list_bienvenida/BienvenidaAdapter.kt)
-    - [Lista_bienvenida.kt](componentes/list_bienvenida/Lista_bienvenida.kt)
+    - [BienvenidaAdapter.kt](componentes/src/main/java/com/fernandopretell/componentes/list_bienvenida/BienvenidaAdapter.kt)
+    - [Lista_bienvenida.kt](componentes/src/main/java/com/fernandopretell/componentes/list_bienvenida/Lista_bienvenida.kt)
     - __models__
-      - [ItemBienvenida.kt](componentes/list_bienvenida/models/ItemBienvenida.kt)             
+      - [ItemBienvenida.kt](componentes/src/main/java/com/fernandopretell/componentes/list_bienvenida/models/ItemBienvenida.kt)             
 
 ---
 ## Capas de aplicación
@@ -84,7 +84,8 @@ En este módulo se encuentran las vistas personalizadas(Custom View).
 - **View**
   --> En esta capa se encuentran la interfaz de usurario, esta capa se encuentra observando al View Model para actualizarse cuando los datos cambien.
 - **ViewModel**
-  --> Esta capa 
+  --> Esta capa se encarga de preparar y administrar los datos a la interfaz de usuario, y es observado por esta. Contiene objetos LiveData para captar cambios en la base de datos local, y transmitirlos a la capa View. También sobrevive a los cambios de configuracion de la activity y/o fragment que la observa porque tiene un ciclo de vida independiente.
+  
   
   <a href="http://fvcproductions.com"><img src="https://miro.medium.com/max/3840/1*6YYuni9J8nDNjMAYh1TIAQ.jpeg" title="FVCproductions" alt="FVCproductions"></a>
 
