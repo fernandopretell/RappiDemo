@@ -1,4 +1,4 @@
-package com.jledesma.dia2.viewmodel
+package com.fernandopretell.rappidemo.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

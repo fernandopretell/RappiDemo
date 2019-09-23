@@ -6,7 +6,6 @@ import org.junit.Assert.*
 
 class BuscadorActivityTest {
 
-    val message:
 
     @Test
     fun showNetworkMessage() {
