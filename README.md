@@ -5,7 +5,7 @@ Mini proyecto para evaluación técnica para la empresa Rappi.
 
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Capas de aplicacion](#capas-de-aplicacion)
-- [Contributing](#contributing)
+- [Responsabilidad de clases](#responsabilidad-de-clases)
 - [Team](#team)
 - [FAQ](#faq)
 - [Support](#support)
@@ -94,10 +94,36 @@ En este módulo se encuentran las vistas personalizadas(Custom View).
 escucha constantemente cambios la base de datos local con la ayuda de objetos LiveData,
 a su vez la Vista observa el ViewModel, con esto tenemos una única fuente de datos."
 ```
+---
+## Responsabilidad de clases
 
-### Installing
+- BaseActivity.kt --> Es la clase base de las actividades, la cual contiene los receptores del cambio de status de red, y       configuración de animaciones de entrada y salida de la actividades.
+- CardModelParcelable.kt --> Versión parcelable de objeto CardModel, que nos permite ser adjuntado en el intent para abrir el   detalle de cada película.
+- Pelicula.kt --> Objeto parte de la respuesta a la solicitud http, es a su vez parte del objeto ResponseApi.kt.
+- ResponseFinal.kt --> Objeto producto de la transformacion de un ResponseAPi o un ResponseEntity.
+- BienvenidaActivity.kt --> Actividad de bienvenida, en la cual podemos elegir que libreria de peliculas queremos ver.
+- BuscadorActivity-kt --> Buscador de películas, sensible a cada caracter escrito.
+- MainActivity.kt --> Actividad principal en la cual podemos ver todo el repertorio de películas disponibles.
+- VistaDetalleActivity --> Actividad donde poemos ver el detalle de cada película.
+- PeliculasRepository.kt --> Esta clase es nuestro repositorio de datos, se encarga de la lógica de recolección de datos.
+- PeliculasDatabase.kt --> Instancia de base de datos local (Room).
+- ResponseEntity.kt --> Instancia de la tabla donde guardaremos los datos.
+- ResponseDao.kt --> Interfaz con metodos para interactuar con la base de datos.
+- ResultConverter.kt --> Esta clase la necesitamos para poder insertar una lista de peliculas en la base de datos local, en     tiempo de ejecucion se usan los métodos aquí presentes.
+- HelperWs.kt --> En esta clase se configura la interacción con la API "The movie database"
+- ResponseApi.kt --> Objeto respuesta de la API
+- WebServiceData.kt --> Interfaz con el metodo para captar la data de la API, esta clase es parte de retrofit.
+- WebServiceImages.kt --> Interfaz con el metodo para obtener las imagenes de la API y guardalas en Room.
+- ConnectivityReceiver.kt --> Broadcast receiver que nos ayuda a captar los eventos status de conexion a datos.
+- Constants.kt --> Contantes.
+- DownloadFileAsyncTask.java --> Con esta clase descargo las imagenes, usando AsyncATask.
+- PeliculaViewModel.kt --> Clase ViewModel, se encarga de preparar y administrar los datos para la vista.
+- MÓDULO COMPONENTES --> Aqui estan todas las clases encargadas de construir las custom views.
 
-A step by step series of examples that tell you how to get a development env running
+
+
+
+
 
 Say what the step will be
 
