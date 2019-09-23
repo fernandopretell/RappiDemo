@@ -6,10 +6,8 @@ Mini proyecto para evaluación técnica para la empresa Rappi.
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Capas de aplicacion](#capas-de-aplicacion)
 - [Responsabilidad de clases](#responsabilidad-de-clases)
-- [Team](#team)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
+- [En qué consiste el principio de responsabilidad única?](#en-que-consiste-el-principio-de-responsabilidad-unica?)
+- [Que entiendes por código limpio?](#que-entiendes-por-codigo-limpio?)
 
 ---
 ## Estructura del proyecto
@@ -120,67 +118,26 @@ a su vez la Vista observa el ViewModel, con esto tenemos una única fuente de da
 - PeliculaViewModel.kt --> Clase ViewModel, se encarga de preparar y administrar los datos para la vista.
 - MÓDULO COMPONENTES --> Aqui estan todas las clases encargadas de construir las custom views.
 
+---
+## En que consiste el principio de responsabilidad única ?
+Este concepto busca que cada clase sea responsable de una sola cosa, es parte de los cinco principios S-O-L-I-D.
+Tiene como proposito desacoplar el código lo mas que se pueda, esto permite que la aplicación sea mas escalable y testeable.
+Tambien podemos mencionar
+
+---
+## Que entiendes por código limpio ?
+Existen varios frentes de los cuales se atacar el concepto de "Buen código o código limpio":
+- En el día a día, un código lo considero limpio, cuando expresa claramente su trabajo, ya que el código tambein necesita ser ententido por todo el equipo de desarrollo.
+- La estructura del código es también algo importante, que cada clase esté donde debe estar, según la arquitectura en uso.
+- Por otro lado la pruebas unitarios son otro factort importante, ya que estos garantizan el funcionamiento de nuestro código, quizas lleva más tiempo construir pruebas unitarias en paralelo a nuestro desarrollo, pero a la larga este codigo test, va a permitir encontrar errores en nuestro codigo rapidamente.
+- Yendo a un paso mas macro, lo primero a tomar en cuenta es los principios S-O-L-I-D.
+-Otra buena manera de ver un buen proyecto es ver la dimensión del proyecto, para proyectos grandes ya creados con Clean Architecture, con View y Presenters en la capa de ´Presentacion´, casos de uso y logica de negocio en la capa `Domain`, y acceso a datos en la capa `Data`, recomendaria seguir adelante con ellos, teniendo siempre presente que debemos usar en lo posible custom views que nos quitan el trabajo de renderizado al sistema operativo.
+Por otro lado si es un proyecto ligero que no tenga mucho  tráfico de datos, y no esta creado, recomedaria MVVM, ya que es lo recomendado por Google, y permite usar los nuevos componentes de Android JetPack.
+Otra casuística seria empezar un proyecto grande desde cero, en ese caso usaria un MVVM siendo parte de un Clean Architecture, sustiyendo los presenters por ViewModels, y usando las coruotines para llamadas asincronas, entre los otros componentes de Android Jetpack (Paging, WorkManager, LiveData, Navigation, etc).
+-Tambien es una buena práctica, usar inyeccion de dependencias, que nos quitan la posibilidad de instanciar objetos en clases, mas bien nos los inyectan cuando sean necesarios. Con esta herramienta tambien estamos acatando uno de los principios SOLID (D).
 
 
 
 
 
-Say what the step will be
 
-```
-"En este proyecto, decidimos actualizar constantemente el repositorio local, y el viewmodel escucha constantemente cambios
-la base de datos local con la ayuda de objetos LiveData, a su vez la vista observa el ViewModel, con esto tenemos
-una única fuente de datos."
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
