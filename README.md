@@ -6,8 +6,8 @@ Mini proyecto para evaluación técnica para la empresa Rappi.
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Capas de aplicacion](#capas-de-aplicacion)
 - [Responsabilidad de clases](#responsabilidad-de-clases)
-- [En qué consiste el principio de responsabilidad única?](#en-que-consiste-el-principio-de-responsabilidad-unica?)
-- [Que entiendes por código limpio?](#que-entiendes-por-codigo-limpio?)
+- [En qué consiste el principio de responsabilidad única?](#en-que-consiste-el-principio-de-responsabilidad-unica-?)
+- [Qué entiendes por código limpio?](#que-entiendes-por-codigo-limpio-?)
 
 ---
 ## Estructura del proyecto
@@ -119,13 +119,13 @@ a su vez la Vista observa el ViewModel, con esto tenemos una única fuente de da
 - MÓDULO COMPONENTES --> Aqui estan todas las clases encargadas de construir las custom views.
 
 ---
-## En que consiste el principio de responsabilidad única ?
+## En qué consiste el principio de responsabilidad única ?
 Este concepto busca que cada clase sea responsable de una sola cosa, es parte de los cinco principios S-O-L-I-D.
 Tiene como proposito desacoplar el código lo mas que se pueda, esto permite que la aplicación sea mas escalable y testeable.
 Tambien podemos mencionar
 
 ---
-## Que entiendes por código limpio ?
+## Qué entiendes por código limpio ?
 Existen varios frentes de los cuales se atacar el concepto de "Buen código o código limpio":
 - En el día a día, un código lo considero limpio, cuando expresa claramente su trabajo, ya que el código tambein necesita ser ententido por todo el equipo de desarrollo.
 - La estructura del código es también algo importante, que cada clase esté donde debe estar, según la arquitectura en uso.
