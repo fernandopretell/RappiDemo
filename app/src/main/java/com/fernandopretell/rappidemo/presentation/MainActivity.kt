@@ -1,17 +1,12 @@
 package com.fernandopretell.rappidemo.presentation
 
-import android.Manifest
-import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -26,12 +21,11 @@ import com.fernandopretell.rappidemo.base.BaseActivity
 import com.fernandopretell.rappidemo.model.CardModelParcelable
 import com.fernandopretell.rappidemo.model.ResponseFinal
 import com.fernandopretell.rappidemo.source.local.ResponseEntity
-import com.fernandopretell.rappidemo.source.remote.ResponseApi
+import com.fernandopretell.rappidemo.viewmodel.PeliculaViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.make
 import com.google.gson.Gson
-import com.jledesma.dia2.viewmodel.PeliculaViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main_scrolling.*
 import java.io.File
@@ -181,13 +175,6 @@ class MainActivity() : BaseActivity(){
     }
 
     fun transformResponseEntityToFinal(data:ResponseEntity):ResponseFinal{
-        data.let {
-            val res = ResponseFinal(data.id,data.page,data.revenue,data.name,data.description,data.backdrop_path,data.results,data.average_rating,data.poster_path)
-            return res
-        }
-    }
-
-    fun transformResponseApiToFinal(data: ResponseApi):ResponseFinal{
         data.let {
             val res = ResponseFinal(data.id,data.page,data.revenue,data.name,data.description,data.backdrop_path,data.results,data.average_rating,data.poster_path)
             return res

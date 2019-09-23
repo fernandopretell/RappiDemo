@@ -7,14 +7,11 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.fernandopretell.componentes.carousel.Carousel
-import com.fernandopretell.componentes.carousel.models.CardModel
 import com.fernandopretell.componentes.list_bienvenida.Lista_bienvenida
 import com.fernandopretell.componentes.list_bienvenida.models.ItemBienvenida
 import com.fernandopretell.rappidemo.R
 import com.fernandopretell.rappidemo.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_bienvenida.*
-import kotlinx.android.synthetic.main.content_main_scrolling.*
 
 //Activity sin interaccion con datos remotos
 class BienvenidaActivity : BaseActivity() {

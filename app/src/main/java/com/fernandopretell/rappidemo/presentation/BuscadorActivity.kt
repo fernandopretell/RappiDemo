@@ -1,44 +1,25 @@
 package com.fernandopretell.rappidemo.presentation
 
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.fernandopretell.componentes.carousel.Card_pelicula
 import com.fernandopretell.componentes.carousel.Carousel
-import com.fernandopretell.componentes.carousel.models.BannerModel
 import com.fernandopretell.componentes.carousel.models.CardModel
 import com.fernandopretell.rappidemo.R
 import com.fernandopretell.rappidemo.base.BaseActivity
 import com.fernandopretell.rappidemo.model.CardModelParcelable
 import com.fernandopretell.rappidemo.model.Pelicula
-import com.fernandopretell.rappidemo.model.ResponseFinal
-import com.fernandopretell.rappidemo.source.local.ResponseEntity
 import com.fernandopretell.rappidemo.util.ConnectivityReceiver
-import com.fernandopretell.rappidemo.util.Constants
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.jledesma.dia2.viewmodel.PeliculaViewModel
 import kotlinx.android.synthetic.main.activity_buscador.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main_scrolling.*
-import java.util.ArrayList
-import kotlin.math.round
 
 class BuscadorActivity : BaseActivity()  {
 

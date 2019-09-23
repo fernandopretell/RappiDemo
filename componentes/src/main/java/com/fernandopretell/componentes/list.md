@@ -1,0 +1,19 @@
+- __componentes__
+  - __button__
+    - [Button.kt](componentes/button/Button.kt)
+  - [Constants_comp.kt](componentes/Constants_comp.kt)
+  - [list.md](componentes/list.md)
+  - __carousel__
+    - [Banner.kt](componentes/carousel/Banner.kt)
+    - [Card_pelicula.kt](componentes/carousel/Card_pelicula.kt)
+    - [Carousel.kt](componentes/carousel/Carousel.kt)
+    - [CarouselAdapter.kt](componentes/carousel/CarouselAdapter.kt)
+    - __models__
+      - [BannerModel.kt](componentes/carousel/models/BannerModel.kt)
+      - [CardModel.kt](componentes/carousel/models/CardModel.kt)
+  - __list_bienvenida__
+    - [BienvenidaAdapter.kt](componentes/list_bienvenida/BienvenidaAdapter.kt)
+    - [Lista_bienvenida.kt](componentes/list_bienvenida/Lista_bienvenida.kt)
+    - __models__
+      - [ItemBienvenida.kt](componentes/list_bienvenida/models/ItemBienvenida.kt)
+
