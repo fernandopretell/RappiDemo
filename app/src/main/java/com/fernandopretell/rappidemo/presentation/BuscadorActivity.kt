@@ -44,6 +44,8 @@ class BuscadorActivity : BaseActivity()  {
         searchBuscarPelicula.setEnabled(false)
 
         actualizarUI(itemList)
+        
+        //anotacion de prueba
 
         // edicion local
 
