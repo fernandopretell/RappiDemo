@@ -45,6 +45,8 @@ class BuscadorActivity : BaseActivity()  {
 
         actualizarUI(itemList)
 
+        // edicion local
+
         searchBuscarPelicula.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
