@@ -44,6 +44,8 @@ class BuscadorActivity : BaseActivity()  {
         searchBuscarPelicula.setEnabled(false)
 
         actualizarUI(itemList)
+        
+        //anotacion de prueba
 
         searchBuscarPelicula.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
